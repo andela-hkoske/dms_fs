@@ -1,3 +1,4 @@
+[![Code Climate](https://codeclimate.com/github/andela-hkoske/dms_api/badges/gpa.svg)](https://codeclimate.com/github/andela-hkoske/dms_api)
 # Document Management System
 The system manages documents, users and user roles. Each document defines access rights, which roles can access it and the date it was published. Users are categorized by roles and each user has a role defined for them.
 It is developed using ​mongoose​, an ODM for Node. The system will permit users to query it through a command line interface.
