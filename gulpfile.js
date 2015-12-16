@@ -6,7 +6,7 @@ var gulp = require('gulp'),
   source = require('vinyl-source-stream'),
   imagemin = require('gulp-imagemin'),
   nodemon = require('gulp-nodemon'),
-  jasmine = require('gulp-jasmine'),
+  jasmineTest = require('gulp-jasmine'),
   browserify = require('browserify'),
   jshint = require('jshint'),
   karma = require('gulp-karma'),
@@ -73,7 +73,7 @@ gulp.task('test:fend', ['browserify', 'bower'], function() {
 gulp.task('test:bend', function() {
   return gulp.src(paths.serverTests)
     // gulp-jasmine works on filepaths so you can't have any plugins before it
-    .pipe(jasmine());
+    .pipe(jasmineTest());
 });
 
 gulp.task('images', function() {
