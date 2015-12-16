@@ -5,6 +5,10 @@ dependencies:
     - npm install module-deps
     - npm install gulp -g
 
+database:
+  override:
+    - cp server/config/database.yml.ci server/config/database.yml
+
 machine:
   environment:
     DB_URL: mongodb://root:abc123@ds045694.mongolab.com:45694/dms
