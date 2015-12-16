@@ -47,9 +47,5 @@
     "vantage": "^1.5.1",
     "vinyl-source-stream": "^1.1.0",
     "vorpal": "^1.3.34"
-  },
-  "devDependencies": {
-    "jasmine-node": "^1.14.5",
-    "superagent": "^1.4.0"
   }
 }
