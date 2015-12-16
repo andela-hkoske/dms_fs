@@ -1,4 +1,5 @@
-[![Code Climate](https://codeclimate.com/github/andela-hkoske/dms_api/badges/gpa.svg)](https://codeclimate.com/github/andela-hkoske/dms_api)
+[![Code Climate](https://codeclimate.com/github/andela-hkoske/dms_fs/badges/gpa.svg)](https://codeclimate.com/github/andela-hkoske/dms_fs)
+[![Code Climate](https://codeclimate.com/github/andela-hkoske/dms_fs/badges/coverage.svg)](https://codeclimate.com/github/andela-hkoske/dms_fs)
 # Document Management System
 The system manages documents, users and user roles. Each document defines access rights, which roles can access it and the date it was published. Users are categorized by roles and each user has a role defined for them.
 It is developed using ​mongoose​, an ODM for Node. The system will permit users to query it through a command line interface.
@@ -14,8 +15,10 @@ It is developed using ​mongoose​, an ODM for Node. The system will permit us
 
 ## Usage
 
+Run `gulp` to run the app.
+Navigate to the address `http://localhost:8080/` on your browser.
 Navigate to terminal to run **jasmine tests**.
-Run `npm test` on the terminal while within the **project root directory**.
+Run `gulp test` on the terminal while within the **project root directory**.
 
 ## Models
 
@@ -23,7 +26,7 @@ Four models are defined: `Roles`, `Types`, `Users` and `Documents`. `Roles` and 
 
 ## Testing
 
-Testing is achieved through use of `superagent` and `jasmine-node` packages. `superagent` is used to make requests to the api and `jasmine-node` to test the results of the request responses. They will both be installed when you run `npm install` and the tests will run when you run `npm test`. The tests are defined under `spec/src` and the helper fpr them under `spec/helpers`.
+Testing is achieved through use of `superagent` and `jasmine-node` packages. `superagent` is used to make requests to the api and `jasmine-node` to test the results of the request responses. They will both be installed when you run `npm install` and the tests will run when you run `npm test` or `gulp test`. The tests are defined under `spec/src` and the helper fpr them under `spec/helpers`.
 
 ## Express Routes
 
