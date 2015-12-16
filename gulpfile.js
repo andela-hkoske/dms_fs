@@ -17,7 +17,7 @@ var gulp = require('gulp'),
     styles: 'app/styles/*.+(less|css)',
     images: 'app/images/**/*',
     unitTests: [],
-    serverTests: ['./spec/server/src/*.spec.js'],
+    serverTests: ['./document-manager.spec.js'],
     staticFiles: [
       '!app/**/*.+(less|css|js|jade)',
       '!app/images/**/*',
