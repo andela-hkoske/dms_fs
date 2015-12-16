@@ -6,6 +6,7 @@ var gulp = require('gulp'),
   source = require('vinyl-source-stream'),
   imagemin = require('gulp-imagemin'),
   nodemon = require('gulp-nodemon'),
+  jasmine = require('gulp-jasmine'),
   browserify = require('browserify'),
   jshint = require('jshint'),
   karma = require('gulp-karma'),
@@ -16,6 +17,7 @@ var gulp = require('gulp'),
     styles: 'app/styles/*.+(less|css)',
     images: 'app/images/**/*',
     unitTests: [],
+    serverTests: ['./spec/server/src/*.spec.js'],
     staticFiles: [
       '!app/**/*.+(less|css|js|jade)',
       '!app/images/**/*',
@@ -53,6 +55,27 @@ gulp.task('bower', function() {
     .pipe(gulp.dest('public/lib/'));
 });
 
+gulp.task('test:fend', ['browserify', 'bower'], function() {
+  // Be sure to return the stream
+  return gulp.src(paths.unitTests)
+    .pipe(karma({
+      configFile: __dirname + '/karma.conf.js',
+      //autoWatch: true,
+      // singleRun: true
+      action: 'run'
+    }))
+    .on('error', function(err) {
+      // Make sure failed tests cause gulp to exit non-zero
+      throw err;
+    });
+});
+
+gulp.task('test:bend', function() {
+  return gulp.src(paths.serverTests)
+    // gulp-jasmine works on filepaths so you can't have any plugins before it
+    .pipe(jasmine());
+});
+
 gulp.task('images', function() {
   gulp.src(paths.images)
     .pipe(imagemin({
@@ -88,18 +111,6 @@ gulp.task('nodemon', function() {
     });
 });
 
-gulp.task('test', ['browserify', 'bower'], function() {
-  // Be sure to return the stream
-  return gulp.src(paths.unitTests)
-    .pipe(karma({
-      configFile: __dirname + '/karma.conf.js',
-      action: 'run'
-    }))
-    .on('error', function(err) {
-      // Make sure failed tests cause gulp to exit non-zero
-      throw err;
-    });
-});
 
 gulp.task('watch', function() {
   // livereload.listen({ port: 35729 });
@@ -111,4 +122,5 @@ gulp.task('watch', function() {
 gulp.task('build', ['jade', 'less', 'static-files',
   'images', 'browserify', 'bower'
 ]);
+gulp.task('test', ['test:bend', 'test:fend']);
 gulp.task('default', ['nodemon', 'watch', 'build']);

@@ -4,9 +4,7 @@
   "description": "Checkpoint 3",
   "main": "index.js",
   "scripts": {
-    "pretest": "node index &\nsleep 3",
-    "test": "./node_modules/jasmine-node/bin/jasmine-node document-manager.spec.js --verbose || :",
-    "posttest": "pkill node"
+    "test": "echo \"Error: no test specified\" && exit 0"
   },
   "repository": {
     "type": "git",
@@ -31,6 +29,7 @@
     "gulp-bower": "0.0.11",
     "gulp-imagemin": "^2.4.0",
     "gulp-jade": "^1.1.0",
+    "gulp-jasmine": "^2.2.1",
     "gulp-karma": "0.0.5",
     "gulp-less": "^3.0.5",
     "gulp-nodemon": "^2.0.4",
