@@ -1,0 +1,23 @@
+dependencies:
+  pre:
+    - bower install
+  post:
+    - npm install module-deps
+    - npm install gulp -g
+
+machine:
+  environment:
+    DB_URL: mongodb://root:abc123@ds045694.mongolab.com:45694/dms
+    PORT: 3000
+    SECRET_KEY: H46Blh8[01JQM,3<4C]dfO)mT9yKMa
+
+test:
+  override:
+    - gulp build
+    - npm test
+
+deployment:
+  production:
+    branch: master
+    heroku:
+      appname: doc-man
