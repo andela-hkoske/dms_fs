@@ -2,13 +2,14 @@ var env = process.env.NODE_ENV || 'development';
 if (env === 'development') {
   require('dotenv').load();
 }
-var express = require('express');
-var morgan = require('morgan');
-var bodyParser = require('body-parser');
-var mongoose = require('mongoose');
-var config = require('./server/config')[env];
-var app = express();
-var seed = require('./server/seeds/index');
+var express = require('express'),
+  morgan = require('morgan'),
+  path = require('path'),
+  bodyParser = require('body-parser'),
+  mongoose = require('mongoose'),
+  config = require('./server/config')[env],
+  app = express(),
+  seed = require('./server/seeds/index');
 
 mongoose.connect(config.db, function(err) {
   if (err) {
@@ -34,15 +35,25 @@ app.use(bodyParser.urlencoded({
 
 app.use(bodyParser.json());
 
+app.set('views', path.join(__dirname, 'server/views'));
+app.set('view engine', 'jade');
+
+
 app.use(morgan('dev', {
   skip: function(req, res) {
     return res.statusCode < 400;
   }
 }));
 
+app.use(express.static(path.join(__dirname, './public')));
+
 var apiRouter = express.Router();
 var api = require('./server/routes')(app, apiRouter);
 app.use('/api', api);
+
+// app.get('*', function(req, res) {
+//   res.sendFile(__dirname, './public/index.html');
+// });
 
 app.listen(config.port, function(err) {
   if (err) {
