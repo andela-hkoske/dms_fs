@@ -1,0 +1,17 @@
+div.dashboard(layout="column" ng-cloak)
+  section(layout='row' flex)
+    md-sidenav.md-sidenav-left.md-whiteframe-z2(md-is-locked-open="$mdMedia('gt-md')")
+      md-toolbar.md-theme-indigo
+        h1.md-toolbar-tools Users
+      md-content.md-padding
+        md-input-container(flex)
+          input(type='text' placeholder='Search')
+        md-list
+          md-list-item.md-3-line(ng-repeat="item in menu")
+            div.md-list-item-text(layout="column")
+              h3 item.name
+              h4 item.state
+              p Hey there!
+    md-content(flex layout-padding)
+      p Hey
+
