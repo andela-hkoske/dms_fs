@@ -5,6 +5,12 @@
   angular.module('docman.filters', []);
   angular.module('docman.directives', []);
 
+  //Services
+  require('./services/users');
+
+  //Controllers
+  require('./controllers/dashboard');
+
   window.app = angular.module('docman', [
     'docman.controllers',
     'docman.services',
@@ -13,8 +19,7 @@
     'ngRoute',
     'ui.router',
     'ngResource',
-    'ngMaterial',
-    'angularFileUpload'
+    'ngMaterial'
   ]);
 
   window.app.run(['$rootScope',
@@ -69,6 +74,7 @@
         })
         .state('dashboard', {
           url: '/user/0/dashboard',
+          controller: 'DashboardCtrl',
           templateUrl: 'views/dashboard.html'
         });
       $locationProvider.html5Mode(true);

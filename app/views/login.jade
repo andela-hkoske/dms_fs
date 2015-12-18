@@ -4,17 +4,15 @@
       md-card-header-text.header-text.md-padding
         span.md-display-2 Login
     md-card-content.md-padding(layout='column')
-      .md-padding(layout='row')
+      .fit(layout='row')
         i.fa.fa-user
         md-input-container(flex)
           input(type='text' placeholder='Username')
-      .md-padding(layout='row')
+      .fit(layout='row')
         i.fa.fa-key
         md-input-container(flex)
           input(type='password' placeholder='Password')
-      md-button.md-raised.md-primary Login
-    md-card-actions(layout='row' layout-align='center center')
-      p.md-title Don't have an account? Sign up here.
-      md-button.md-fab.md-mini
-        md-tooltip Sign Up
-        i.fa.fa-pencil
+      md-button.md-raised.md-primary.button Login
+    md-card-actions.md-padding(layout='row' layout-align='center center')
+      p Don't have an account?
+      a.link(ui-sref='signup') Sign up here.
