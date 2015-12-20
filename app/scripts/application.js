@@ -5,11 +5,21 @@
   angular.module('docman.filters', []);
   angular.module('docman.directives', []);
 
-  //Services
+  // Services
   require('./services/users');
+  require('./services/roles');
+  require('./services/documents');
+  require('./services/types');
+  require('./services/token');
+  require('./services/auth');
+  require('./services/token-injector');
+  require('./services/utils');
 
-  //Controllers
+  // Controllers
   require('./controllers/dashboard');
+  require('./controllers/login');
+  require('./controllers/header');
+  require('./controllers/signup');
 
   window.app = angular.module('docman', [
     'docman.controllers',
@@ -22,18 +32,14 @@
     'ngMaterial'
   ]);
 
-  window.app.run(['$rootScope',
-    function($rootScope) {
-      $rootScope.menu = [{
-        name: 'About',
-        state: 'about'
-      }, {
-        name: 'Login',
-        state: 'login'
-      }, {
-        name: 'Dashboard',
-        state: 'dashboard'
-      }];
+  window.app.run(['$rootScope', 'Users',
+    function($rootScope, Users) {
+      Users.session(function(err, res) {
+        if (!err && res) {
+          $rootScope.currentUser = res;
+          console.log($rootScope.currentUser);
+        }
+      });
     }
   ]);
 
@@ -41,11 +47,14 @@
     '$urlRouterProvider', '$locationProvider', '$mdThemingProvider',
     function($stateProvider, $httpProvider, $urlRouterProvider,
       $locationProvider, $mdThemingProvider) {
+      // http interceptor to include token
+      $httpProvider.interceptors.push('TokenInjector');
+
       // For any unmatched url, redirect to /state1
       $urlRouterProvider.otherwise('/404');
-      // Now set up the states
+
       $mdThemingProvider.theme('default')
-        .primaryPalette('pink')
+        .primaryPalette('blue')
         .accentPalette('indigo')
         .backgroundPalette('grey', {
           default: '200'
@@ -66,14 +75,16 @@
         })
         .state('login', {
           url: '/users/login',
+          controller: 'LoginCtrl',
           templateUrl: 'views/login.html'
         })
         .state('signup', {
           url: '/users/signup',
+          controller: 'SignupCtrl',
           templateUrl: 'views/signup.html'
         })
         .state('dashboard', {
-          url: '/user/0/dashboard',
+          url: '/user/{id}/dashboard',
           controller: 'DashboardCtrl',
           templateUrl: 'views/dashboard.html'
         });
