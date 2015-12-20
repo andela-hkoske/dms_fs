@@ -2,16 +2,80 @@ div.dashboard(layout="column" ng-cloak)
   section(layout='row' flex)
     md-sidenav.md-sidenav-left.md-whiteframe-z2(md-is-locked-open="$mdMedia('gt-md')")
       md-toolbar.md-theme-indigo
-        h1.md-toolbar-tools Users
-      md-content.md-padding
-        md-input-container(flex)
-          input(type='text' placeholder='Search')
-        md-list
-          md-list-item.md-3-line(ng-repeat="item in menu")
-            div.md-list-item-text(layout="column")
-              h3 item.name
-              h4 item.state
-              p Hey there!
-    md-content(flex layout-padding)
-      p Hey
-
+        p.md-headline.md-padding Users
+      md-content
+        .md-padding(layout='column')
+          p.md-subhead Search
+          md-input-container(flex)
+            input(type='text' ng-model='search')
+        md-list.fit(flex)
+          md-list-item.fit(ng-repeat="user in users | filter:search" flex )
+            md-card.ripple-container.fit-margin(layout="row" flex md-ink-ripple ng-click='setUser(user)')
+              div(layout='column' flex)
+                h2.list-text-1 {{user.name.first}} {{user.name.last}}
+                p.md-subhead {{user.email}}
+              md-button.md-fab.md-mini.md-primary.white-text
+                p.md-subhead {{user.docs}}
+                md-tooltip Documents
+    md-content(flex layout='column')
+      .fit(flex layout='row')
+        .fit(layout='column' flex='33')
+          .fit(flex='50' layout='column')
+            .md-padding.user-details(layout='row')
+              .fit(flex)
+                p.md-headline User Details
+            .md-padding(ng-if='!selectedUser')
+              p.md-display-1.list-text-1.md-padding Select a user
+            .md-padding(layout='column' ng-if='selectedUser')
+              h2.list-text-1 Name
+              p.md-subhead.user-text &nbsp{{selectedUser.name.first}} {{selectedUser.name.last}}
+              h2.list-text-1 Email
+              p.md-subhead.user-text &nbsp{{selectedUser.email}}
+              h2.list-text-1 Username
+              p.md-subhead.user-text &nbsp{{selectedUser.username}}
+              h2.list-text-1 Role
+              p.md-subhead.user-text &nbsp{{selectedUser.role.title}}
+              h2.list-text-1 Documents
+              p.md-subhead.user-text &nbsp{{selectedUser.docs}}
+              .fit(flex ng-if='selectedUser && currentUser.role.title === \'Administrator\' && currentUser._id !== selectedUser._id' layout='row' layout-align='end start')
+                md-button.md-fab.md-primary.md-mini(aria-label="edit user" ng-click='editUser(selectedUser)')
+                  md-tooltip Update
+                  i.fa.fa-lg.fa-wrench
+                md-button.md-fab.md-primary.md-mini(aria-label="delete user" ng-click='deleteUser(selectedUser)')
+                  md-tooltip Delete
+                  i.fa.fa-lg.fa-trash
+          .fit(flex='50' layout='column' ng-if='selectedUser')
+            .md-padding.user-details
+              p.md-headline Documents
+            .md-padding(ng-if='selectedDocs.length === 0')
+              p.md-display-1.list-text-1.md-padding No Documents
+            md-list.fit(flex ng-if='selectedDocs.length > 0')
+              md-list-item.fit(ng-repeat="doc in selectedDocs" flex )
+                md-card.ripple-container.fit-margin(layout="row" flex md-ink-ripple ng-click='setDoc(doc)')
+                  div(layout='column' flex)
+                    h2.list-text-1 {{doc.title}}
+                    p.md-subhead Created on:&nbsp{{doc.created_at}}
+        md-card.fit(flex layout='column')
+          .md-padding.user-details
+              p.md-headline Document Preview
+          .md-padding(ng-if='!doc && !docErr')
+              p.md-display-1.list-text-1.md-padding Select a Document
+          md-card.md-padding.doc-text.white-bg(layout='column' flex ng-if='!docErr && doc')
+            md-card-content.md-padding(layout='column' flex)
+              h2.list-text-1 Title:
+              p.md-subhead.user-text {{doc.title}}
+              h2.list-text-1 Type:
+              p.md-subhead.user-text {{doc.type}}
+              h2.list-text-1 Access:
+              p.md-subhead.user-text {{doc.access}}
+              h2.list-text-1 Content:
+              p.md-subhead.user-text {{doc.content}}
+            md-card-actions(layout="row" layout-align="end center" ng-if='currentUser.role.title !== \'Viewer\' || (currentUser.role.title === \'User\' && currentUser._id !== doc.owner._id)')
+              md-button.md-fab.md-primary.md-mini(aria-label="edit document")
+                md-tooltip Update
+                i.fa.fa-lg.fa-wrench
+              md-button.md-fab.md-primary.md-mini(aria-label="delete document")
+                md-tooltip Delete
+                i.fa.fa-lg.fa-trash
+          .md-padding(layout='column' flex ng-if='docErr' style='background-color: white')
+            p.md-display-1.list-text-1.md-padding {{docErr}}
