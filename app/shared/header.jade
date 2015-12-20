@@ -1,6 +1,26 @@
-div.md-whiteframe-6dp.app-header(flex layout='row')
+div.md-whiteframe-6dp.app-header(flex layout='row' ng-controller='HeaderCtrl')
   div(flex layout='row')
     img.logo(src='images/logo.png')
     p.md-display-1.app-title DocMan
   div(flex layout='row' layout-align='end center')
-    md-button(ng-repeat='menuItem in menu' ui-sref='{{menuItem.state}}') {{menuItem.name}}
+    md-button.md-fab.md-mini.button-grey(ui-sref='home')
+      i.fa.fa-lg.fa-home
+        md-tooltip Home
+    md-button.md-fab.md-mini.button-grey(ui-sref='about')
+      i.fa.fa-lg.fa-info
+        md-tooltip About
+    md-button.md-fab.md-mini.button-grey(ng-if='!currentUser' ui-sref='login')
+      i.fa.fa-lg.fa-sign-in
+        md-tooltip Login
+    md-button.md-fab.md-mini.md-primary(ng-if='!currentUser' ui-sref='signup')
+      i.fa.fa-lg.fa-pencil
+        md-tooltip Sign Up
+    md-button.md-fab.md-mini.md-primary(ng-if='currentUser' ui-sref='dashboard({id: currentUser._id})')
+      i.fa.fa-lg.fa-tachometer
+        md-tooltip Dashboard
+    md-button.md-fab.md-mini.md-primary(ng-if='currentUser')
+      i.fa.fa-lg.fa-user
+        md-tooltip {{currentUser.name.first}} {{currentUser.name.last}}
+    md-button.md-fab.md-mini.button-grey(ng-if='currentUser' ng-click='logout()')
+      i.fa.fa-lg.fa-sign-out
+        md-tooltip Sign Out
