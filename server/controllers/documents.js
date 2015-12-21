@@ -3,7 +3,7 @@ var getId = function(url) {
   var parts = url.split('/');
   parts.splice(0, 1);
   if (parts[2] === 'limit' || parts[2] === 'role' ||
-   parts[2] === 'date' || parts[2] === 'type' || parts[2] === 'find') {
+    parts[2] === 'date' || parts[2] === 'type' || parts[2] === 'find') {
     return undefined;
   } else {
     return parts[2];
@@ -56,7 +56,7 @@ module.exports = {
         .exec(function(err, document) {
           if (err) {
             return res.status(500).send(err);
-          } else {
+          } else if (document.owner.toString() !== req.decoded._id) {
             for (var i = 0, l = document.roles.length; i < l; i++) {
               if (document.roles[i].title === req.decoded.role.title) {
                 grant = true;
@@ -73,6 +73,8 @@ module.exports = {
             } else {
               next();
             }
+          } else {
+            next();
           }
         });
     } else {
