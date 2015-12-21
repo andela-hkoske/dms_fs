@@ -16,16 +16,18 @@ mongoose.connect(config.db, function(err) {
     console.log('Error connecting to the database');
     console.log(err);
   } else {
-    mongoose.connection.db.dropDatabase(function(err) {
-      if (err) {
-        return err;
-      } else {
-        console.log('Connected to the database...');
-        console.log('Dropped database...');
-        console.log('Seeding database...');
-        seed();
-      }
-    });
+    if (env === 'test') {
+      mongoose.connection.db.dropDatabase(function(err) {
+        if (err) {
+          return err;
+        } else {
+          console.log('Connected to the database...');
+          console.log('Dropped database...');
+          console.log('Seeding database...');
+          seed();
+        }
+      });
+    }
   }
 });
 
@@ -51,9 +53,11 @@ var apiRouter = express.Router();
 var api = require('./server/routes')(app, apiRouter);
 app.use('/api', api);
 
-// app.get('*', function(req, res) {
-//   res.sendFile(__dirname, './public/index.html');
-// });
+app.get('/*', function(req, res) {
+  res.sendFile('index.html', {
+    root: './public'
+  });
+});
 
 app.listen(config.port, function(err) {
   if (err) {
