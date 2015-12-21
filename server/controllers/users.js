@@ -15,20 +15,39 @@ function createToken(user) {
 }
 
 module.exports = {
-  authenticate: function(req, res, next) {
-    var respond = function(err, decoded) {
-      if (!err) {
-        req.decoded = decoded;
-        next();
-      } else {
-        return res.status(403).send({
-          success: false,
-          message: 'Failed to authenticate user. No token provided.'
-        });
-      }
-    };
+  session: function(req, res) {
     var token = req.headers['x-access-token'];
-    jsonwebtoken.verify(token, secretKey, respond);
+    if (token && token !== 'null') {
+      jsonwebtoken.verify(token, secretKey,
+        function(err, decoded) {
+          if (err) {
+            res.status(403).json({
+              error: 'Session has expired or does not exist.'
+            });
+          } else {
+            User.findById(decoded._id)
+            .populate('role')
+            .exec(function(err, user) {
+              if (err) {
+                res.status(500).json({
+                  message: 'Error retrieving user',
+                  err: err
+                });
+              } else if (!user) {
+                res.status(404).json({
+                  message: 'User not found'
+                });
+              } else {
+                delete user.password;
+                req.decoded = user;
+                res.json(user);
+              }
+            });
+          }
+        });
+    } else {
+      return res.json(req.decoded);
+    }
   },
 
   signup: function(req, res) {
@@ -183,7 +202,8 @@ module.exports = {
           return res.send({
             success: true,
             message: 'Successfully logged in',
-            token: tokenStr
+            token: tokenStr,
+            user: user
           });
         }
       }
@@ -243,6 +263,26 @@ module.exports = {
           return res.status(500).send(err);
         }
         return res.send(documents);
+      });
+  },
+  countUserDocs: function(req, res) {
+    Document
+      .aggregate()
+      .group({
+        _id: '$owner',
+        count: {
+          $sum: 1
+        }
+      })
+      .exec(function(err, docs) {
+        if (err) {
+          res.status(500).send({
+            success: false,
+            message: 'There was a problem fetching the documents'
+          });
+        } else {
+          res.send(docs);
+        }
       });
   }
 };
