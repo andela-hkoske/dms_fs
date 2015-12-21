@@ -7,5 +7,6 @@ var envVars = {
 module.exports = {
   development: envVars,
   staging: envVars,
-  production: envVars
+  production: envVars,
+  test: envVars
 };
