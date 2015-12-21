@@ -7,9 +7,11 @@ dependencies:
 
 machine:
   environment:
+    NODE_ENV: test
+    CIRCLE_ENV: test
     DB_URL: mongodb://root:abc123@ds045694.mongolab.com:45694/dms
     PORT: 3000
-    SECRET_KEY: H46Blh8[01JQM,3<4C]dfO)mT9yKMa
+    SECRET_KEY: H46Blh801JQM3<4CdfOmT9yKMa
 
 test:
   override:
