@@ -1,7 +1,7 @@
 angular.module('docman.services')
   .factory('Users', ['$resource', '$http', function($resource, $http) {
     var userRes = $resource('/api/users/:id', {
-      id: '@id'
+      id: '@_id'
     }, {
       update: {
         method: 'PUT'
