@@ -1,4 +1,4 @@
-angular.module('docman.services', [])
+angular.module('docman.services')
   .service('Utils', function($mdToast, $mdDialog) {
     this.toast = function(msg) {
       $mdToast.show($mdToast.simple().content(msg));
