@@ -10,7 +10,6 @@ angular.module('docman.controllers')
           } else {
             Auth.setToken(res.token);
             $rootScope.currentUser = res.user;
-            console.log(res);
             $state.go('dashboard', {
               id: $rootScope.currentUser._id
             });
