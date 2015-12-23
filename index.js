@@ -16,12 +16,12 @@ mongoose.connect(config.db, function(err) {
     console.log('Error connecting to the database');
     console.log(err);
   } else {
+    console.log('Connected to the database...');
     if (env === 'test') {
       mongoose.connection.db.dropDatabase(function(err) {
         if (err) {
           return err;
         } else {
-          console.log('Connected to the database...');
           console.log('Dropped database...');
           console.log('Seeding database...');
           seed();
