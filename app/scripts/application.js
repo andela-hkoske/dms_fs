@@ -37,7 +37,6 @@
       Users.session(function(err, res) {
         if (!err && res) {
           $rootScope.currentUser = res;
-          console.log($rootScope.currentUser);
         }
       });
     }
@@ -55,7 +54,7 @@
 
       $mdThemingProvider.theme('default')
         .primaryPalette('blue')
-        .accentPalette('indigo')
+        .accentPalette('blue')
         .backgroundPalette('grey', {
           default: '200'
         });
