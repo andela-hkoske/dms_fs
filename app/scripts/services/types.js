@@ -1,7 +1,7 @@
 angular.module('docman.services')
   .factory('Types', ['$resource', '$http', function($resource, $http) {
     var typesRes = $resource('/api/types/:id', {
-      id: '@id'
+      id: '@_id'
     }, {
       update: {
         method: 'PUT'
