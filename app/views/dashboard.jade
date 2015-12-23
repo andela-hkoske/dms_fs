@@ -38,11 +38,11 @@ div.dashboard(layout="column" ng-cloak)
               h2.list-text-1 Documents
               p.md-subhead.user-text &nbsp{{selectedUser.docs}}
               .fit(flex ng-if='selectedUser && currentUser.role.title === \'Administrator\' && currentUser._id !== selectedUser._id' layout='row' layout-align='end start')
-                md-button.md-fab.md-primary.md-mini(aria-label="edit user" ng-click='editUser(selectedUser)')
-                  md-tooltip Update
+                md-button.md-fab.md-primary.md-mini(aria-label="edit user" ng-click='editUser($event)')
+                  md-tooltip Update User
                   i.fa.fa-lg.fa-wrench
-                md-button.md-fab.md-primary.md-mini(aria-label="delete user" ng-click='deleteUser(selectedUser)')
-                  md-tooltip Delete
+                md-button.md-fab.md-primary.md-mini(aria-label="delete user" ng-click='deleteUser($event)')
+                  md-tooltip Delete User
                   i.fa.fa-lg.fa-trash
           .fit(flex='50' layout='column' ng-if='selectedUser')
             .md-padding.user-details
@@ -50,11 +50,11 @@ div.dashboard(layout="column" ng-cloak)
             .md-padding(ng-if='selectedDocs.length === 0')
               p.md-display-1.list-text-1.md-padding No Documents
             md-list.fit(flex ng-if='selectedDocs.length > 0')
-              md-list-item.fit(ng-repeat="doc in selectedDocs" flex )
+              md-list-item.fit(ng-repeat="doc in selectedDocs" flex style='padding: 0')
                 md-card.ripple-container.fit-margin(layout="row" flex md-ink-ripple ng-click='setDoc(doc)')
                   div(layout='column' flex)
                     h2.list-text-1 {{doc.title}}
-                    p.md-subhead Created on:&nbsp{{doc.created_at}}
+                    p.md-subhead Created on:&nbsp{{doc.created_at_st}}
         md-card.fit(flex layout='column')
           .md-padding.user-details
               p.md-headline Document Preview
@@ -65,17 +65,21 @@ div.dashboard(layout="column" ng-cloak)
               h2.list-text-1 Title:
               p.md-subhead.user-text {{doc.title}}
               h2.list-text-1 Type:
-              p.md-subhead.user-text {{doc.type}}
+              p.md-subhead.user-text {{doc.type.title}}
               h2.list-text-1 Access:
               p.md-subhead.user-text {{doc.access}}
               h2.list-text-1 Content:
               p.md-subhead.user-text {{doc.content}}
+              h2.list-text-1 Created at:
+              p.md-subhead.user-text {{doc.created_at_st}}
+              h2.list-text-1 Last updated at:
+              p.md-subhead.user-text {{doc.updated_at_st}}
             md-card-actions(layout="row" layout-align="end center" ng-if='currentUser.role.title !== \'Viewer\' || (currentUser.role.title === \'User\' && currentUser._id !== doc.owner._id)')
-              md-button.md-fab.md-primary.md-mini(aria-label="edit document")
-                md-tooltip Update
+              md-button.md-fab.md-primary.md-mini(aria-label="edit document" ng-click='editDoc($event)')
+                md-tooltip Update Document
                 i.fa.fa-lg.fa-wrench
-              md-button.md-fab.md-primary.md-mini(aria-label="delete document")
-                md-tooltip Delete
+              md-button.md-fab.md-primary.md-mini(aria-label="delete document" ng-click='deleteDoc($event)')
+                md-tooltip Delete Document
                 i.fa.fa-lg.fa-trash
           .md-padding(layout='column' flex ng-if='docErr' style='background-color: white')
             p.md-display-1.list-text-1.md-padding {{docErr}}
