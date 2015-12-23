@@ -1,0 +1,29 @@
+md-dialog.update-user(aria-label='Update Type')
+    md-toolbar
+      .md-toolbar-tools
+        h2(flex) Types
+        md-button(ng-click='cancel()')
+          md-tooltip Close
+          i.fa.fa-lg.fa-times-circle
+    md-dialog-content.types.fit(layout='column')
+      .md-padding(layout='column')
+        h2.list-text-1 Available
+        md-list(flex)
+          md-list-item.fit(ng-repeat="type in types" flex)
+            md-card.ripple-container.fit-margin(layout="row" flex md-ink-ripple)
+              div(layout='row' flex)
+                h2.list-text-1(flex) {{type.title}}
+                div(layout='row' layout-align='end center')
+                  md-button.md-fab.md-mini.md-primary
+                    md-tooltip Update
+                    i.fa.fa-lg.fa-wrench
+                  md-button.md-fab.md-mini.md-primary
+                    md-tooltip Delete
+                    i.fa.fa-lg.fa-trash
+        h2.list-text-1 Type Title
+        md-input-container.md-padding(flex)
+          input(type='text' ng-required='true')
+        div(flex layout-align='center center')
+          md-button.md-raised.md-primary.button
+            p.md-title Save
+
