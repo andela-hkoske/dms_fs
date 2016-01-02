@@ -1,7 +1,7 @@
 angular.module('docman.services')
   .factory('Users', ['$resource', '$http', function($resource, $http) {
     var userRes = $resource('/api/users/:id', {
-      id: '@id'
+      id: '@_id'
     }, {
       update: {
         method: 'PUT'
@@ -17,6 +17,14 @@ angular.module('docman.services')
           cb(err);
         });
     };
+    userRes.session = function(cb) {
+      $http.get('/api/users/session')
+        .success(function(res) {
+          cb(null, res);
+        }).error(function(err) {
+          cb(err);
+        });
+    };
     userRes.find = function(params, cb) {
       $http.post('/api/users/find', params)
         .success(function(res) {
@@ -26,7 +34,7 @@ angular.module('docman.services')
         });
     };
     userRes.logout = function(cb) {
-      $http.post('/api/users/logout')
+      $http.get('/api/users/logout')
         .success(function(res) {
           cb(null, res);
         }).error(function(err) {
@@ -34,7 +42,15 @@ angular.module('docman.services')
         });
     };
     userRes.getDocs = function(id, cb) {
-      $http.post('/api/users/' + id + '/documents')
+      $http.get('/api/users/' + id + '/documents')
+        .success(function(res) {
+          cb(null, res);
+        }).error(function(err) {
+          cb(err);
+        });
+    };
+    userRes.getUserDocs = function(cb) {
+      $http.get('/api/users/documents')
         .success(function(res) {
           cb(null, res);
         }).error(function(err) {

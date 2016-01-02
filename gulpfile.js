@@ -73,7 +73,9 @@ gulp.task('test:fend', ['browserify', 'bower'], function() {
 gulp.task('test:bend', function() {
   return gulp.src(paths.serverTests)
     // gulp-jasmine works on filepaths so you can't have any plugins before it
-    .pipe(jasmineTest());
+    .pipe(jasmineTest({
+      verbose: true
+    }));
 });
 
 gulp.task('images', function() {
@@ -113,7 +115,6 @@ gulp.task('nodemon', function() {
 
 
 gulp.task('watch', function() {
-  // livereload.listen({ port: 35729 });
   gulp.watch(paths.jade, ['jade']);
   gulp.watch(paths.styles, ['less']);
   gulp.watch(paths.scripts, ['browserify']);

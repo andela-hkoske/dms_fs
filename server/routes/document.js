@@ -1,6 +1,8 @@
 var DocumentCtrl = require('../controllers/documents');
+var Auth = require('../services/auth');
 
 module.exports = function(api) {
+  api.use(Auth.authenticate);
   api.use(DocumentCtrl.authAccess);
   api.get('/documents/:id', DocumentCtrl.getById);
   api.get('/documents', DocumentCtrl.getAll);

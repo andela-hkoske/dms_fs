@@ -1,7 +1,19 @@
-.md-padding.home(layout='column' layout-align='center center')
-  .md-padding(layout-align='center center' layout='column')
+.fit.home(layout='column' layout-align='center center')
+  .home-div(layout-align='center center' layout='column' hide-md hide-sm)
     p.md-display-4.big-tag Write. Save. Access.
+    p.md-display-2.little-tag For everything you’ll do, DocMan is the workspace to get it done!
+    img.home-img(src='images/img.png')
+    md-button.button(ui-sref='signup')
+      p.md-title Sign up today
+  .home-div(layout-align='center center' layout='column' hide-gt-md hide-sm)
+    p.md-display-3.big-tag Write. Save. Access.
+    p.md-display-1.little-tag For everything you’ll do, DocMan is the workspace to get it done!
+    img.home-img(src='images/img.png')
+    md-button.button(ui-sref='signup')
+      p.md-title Sign up today
+  .home-div(layout-align='center center' layout='column' hide-gt-sm)
+    p.md-display-1.big-tag Write. Save. Access.
     p.md-headline.little-tag For everything you’ll do, DocMan is the workspace to get it done!
-    img.home-img(src='images/tablet.png')
-    md-button.md-raised(ui-sref='signup')
-      p.md-padding.md-title.button Sign up today
+    img.home-img(src='images/img.png')
+    md-button.button(ui-sref='signup')
+      p.md-title Sign up today

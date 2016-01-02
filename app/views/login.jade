@@ -3,16 +3,19 @@
     md-card-header.md-padding.header
       md-card-header-text.header-text.md-padding
         span.md-display-2 Login
-    md-card-content.md-padding(layout='column')
+    md-card-content.md-padding.md-margin(layout='column')
       .fit(layout='row')
-        i.fa.fa-user
-        md-input-container(flex)
-          input(type='text' placeholder='Username')
+        i.fa.fa-user.fa-2x.icon
+        md-input-container.md-padding(flex)
+          input(type='text' ng-required='true' ng-model='user.username' placeholder='Username')
       .fit(layout='row')
-        i.fa.fa-key
-        md-input-container(flex)
-          input(type='password' placeholder='Password')
-      md-button.md-raised.md-primary.button Login
-    md-card-actions.md-padding(layout='row' layout-align='center center')
-      p Don't have an account?
-      a.link(ui-sref='signup') Sign up here.
+        i.fa.fa-key.fa-2x.icon
+        md-input-container.md-padding(flex)
+          input(type='password' ng-required='true' ng-model='user.password' placeholder='Password')
+      div(layout='row' layout-align='center center')
+        p.md-padding.link {{message}}
+      md-button.md-raised.md-primary.button(ng-click='login()')
+        p.md-title Log me in
+      div.md-padding(layout='row' layout-align='center center')
+        p Don't have an account?&nbsp
+        a.link(ui-sref='signup') Sign up here.
