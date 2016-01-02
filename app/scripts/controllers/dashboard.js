@@ -1,8 +1,14 @@
 angular.module('docman.controllers')
-  .controller('DashboardCtrl', ['$scope', '$mdMedia', '$mdDialog', 'Users',
-    'Documents', 'Roles', 'Utils', 'Types',
-    function($scope, $mdMedia, $mdDialog, Users, Documents, Roles, Utils, Types) {
+  .controller('DashboardCtrl', ['$scope', '$mdSidenav', '$mdMedia', '$mdDialog',
+    'Users', 'Documents', 'Roles', 'Utils', 'Types',
+    function($scope, $mdSidenav, $mdMedia,
+      $mdDialog, Users, Documents, Roles, Utils, Types) {
       var chosenUser, chosenDoc;
+
+      $scope.toggle = function() {
+        $mdSidenav('left').toggle();
+      };
+
       var initUsers = function() {
         Users.getUserDocs(function(err, res) {
           if (!err) {
@@ -83,6 +89,7 @@ angular.module('docman.controllers')
       $scope.setUser = function(user) {
         $scope.selectedUser = user;
         chosenUser = user;
+        $mdSidenav('left').close();
         initDocs(user._id);
       };
 
@@ -136,9 +143,6 @@ angular.module('docman.controllers')
         $scope.cancel = function() {
           $mdDialog.cancel();
         };
-        $scope.answer = function(answer) {
-          $mdDialog.hide(answer);
-        };
         Roles.query(function(res) {
           $scope.roles = res;
         });
@@ -174,9 +178,6 @@ angular.module('docman.controllers')
         };
         $scope.cancel = function() {
           $mdDialog.cancel();
-        };
-        $scope.answer = function(answer) {
-          $mdDialog.hide(answer);
         };
         var initRoles = function() {
           var roleIds = $scope.roles.map(function(value) {
