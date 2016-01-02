@@ -1,13 +1,13 @@
-.fit.about(layout='row')
-  .fit(flex).img-div
+.fit.about(layout='row' hide-lg hide-sm hide-md)
+  .fit.img-div(flex='50')
     img.image.fit(src='images/bg.jpg')
-  .fit.text-div(flex)
+  .fit.text-div(flex='50')
     div.md-padding.md-margin(layout='column')
       div.md-padding(layout='row' layout-align='center center')
         img.logo.fit(src='images/logo_big.png')
-        p.md-display-4 DocMan
+        p.md-display-3 DocMan
       div(layout='row' layout-align='center center')
-        p.md-display-1.light-text Available everyday for your everyday use.
+        p.md-headline.light-text.headline Available everyday for your everyday use.
       .md-padding.squeeze(layout='column')
         div(layout='row')
           i.fa.fa-2x.fa-pencil-square-o
@@ -23,6 +23,28 @@
           i.fa.fa-2x.fa-comments
           p.md-headline.bold DISCUSS
         p.desc Connect your work with the people who help you get it done. Communicate, collaborate, and share in real-time with anyone in the world without ever leaving DocMan.
-
-
-
+.fit.about(layout='column' hide-gt-lg)
+  .fit.img-div(flex='50')
+    img.image.fit(src='images/bg.jpg')
+  .fit.text-div(flex='50')
+    div.md-padding.md-margin(layout='column')
+      div.md-padding(layout='row' layout-align='center center')
+        img.logo.fit(src='images/logo_big.png')
+        p.md-display-3 DocMan
+      div(layout='row' layout-align='center center')
+        p.md-headline.light-text.headline Available everyday for your everyday use.
+      .md-padding.squeeze(layout='column')
+        div(layout='row')
+          i.fa.fa-2x.fa-pencil-square-o
+          p.md-headline.bold WRITE
+        p From short lists to lengthy research, no matter what form your writing takes, DocMan keeps you focused on moving those ideas from inspiration to completion.
+      .md-padding.squeeze(layout='column')
+        div(layout='row')
+          i.fa.fa-2x.fa-book
+          p.md-headline.bold COLLECT
+        p Easily gather everything that matters. Clip web articles, capture handwritten notes, and snap photos to keep the physical and digital details of your projects with you at all times.
+      .md-padding.squeeze(layout='column')
+        div(layout='row')
+          i.fa.fa-2x.fa-comments
+          p.md-headline.bold DISCUSS
+        p Connect your work with the people who help you get it done. Communicate, collaborate, and share in real-time with anyone in the world without ever leaving DocMan.
