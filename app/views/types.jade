@@ -10,20 +10,22 @@ md-dialog.update-user(aria-label='Update Type')
         h2.list-text-1 Available
         md-list(flex)
           md-list-item.fit(ng-repeat="type in types" flex)
-            md-card.ripple-container.fit-margin(layout="row" flex md-ink-ripple)
+            md-card.ripple-container.fit-margin(layout="row" flex md-ink-ripple ng-click='select(type)')
               div(layout='row' flex)
                 h2.list-text-1(flex) {{type.title}}
                 div(layout='row' layout-align='end center')
-                  md-button.md-fab.md-mini.md-primary
+                  md-button.md-fab.md-mini.md-primary( ng-click='select(type)')
                     md-tooltip Update
                     i.fa.fa-lg.fa-wrench
-                  md-button.md-fab.md-mini.md-primary
+                  md-button.md-fab.md-mini.md-primary( ng-click='delete(type, $event)')
                     md-tooltip Delete
                     i.fa.fa-lg.fa-trash
         h2.list-text-1 Type Title
         md-input-container.md-padding(flex)
-          input(type='text' ng-required='true')
+          input(type='text' ng-required='true' ng-model='selectedType.title')
+        div(layout='row' layout-align='center center')
+          p.md-padding.link {{message}}
         div(flex layout-align='center center')
-          md-button.md-raised.md-primary.button
-            p.md-title Save
+          md-button.md-raised.md-primary.button(ng-click='update()')
+            p.md-title Update
 
