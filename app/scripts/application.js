@@ -16,10 +16,17 @@
   require('./services/utils');
 
   // Controllers
+  require('./controllers/editUserDialog');
+  require('./controllers/newRole');
+  require('./controllers/newType');
+  require('./controllers/newDocument');
+  require('./controllers/typesDialog');
+  require('./controllers/rolesDialog');
   require('./controllers/dashboard');
   require('./controllers/login');
   require('./controllers/header');
   require('./controllers/signup');
+
 
   window.app = angular.module('docman', [
     'docman.controllers',
