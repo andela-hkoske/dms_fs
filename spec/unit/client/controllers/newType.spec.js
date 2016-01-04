@@ -61,6 +61,12 @@ describe('NewTypeDialogController tests', function() {
         $scope.create();
         httpBackend.flush();
         expect(Types.save.called).toBe(true);
+        Types.save.args[0][1]();
+        expect($scope.message).toBeDefined();
+        expect($scope.message).toBe('You have successfully created this type');
+        Types.save.args[0][2]();
+        expect($scope.message).toBe('There was a problem creating a type. ' +
+          'Try again or change the name of the type.');
       });
     });
 
