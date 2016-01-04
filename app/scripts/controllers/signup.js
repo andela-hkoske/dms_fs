@@ -1,7 +1,7 @@
 angular.module('docman.controllers')
-  .controller('SignupCtrl', ['$rootScope', '$scope', '$state', '$timeout',
+  .controller('SignupCtrl', ['$scope', '$state', '$timeout',
     'Users', 'Auth', 'Roles',
-    function($rootScope, $scope, $state, $timeout, Users, Auth, Roles) {
+    function($scope, $state, $timeout, Users, Auth, Roles) {
       $scope.user = {};
       Roles.query(function(res) {
         $scope.roles = res;
