@@ -54,10 +54,15 @@ describe('HeaderCtrl Controller tests', function() {
       it('Should define $scope.logout', function() {
         expect($scope.logout).toBeDefined();
         Users.logout = sinon.spy();
+        Auth.logout = sinon.stub();
+        $state.go = sinon.stub();
         $scope.logout();
         httpBackend.flush();
         expect(Users.logout.called).toBe(true);
-        expect(typeof Users.logout.args[0][0]).toBe('function');
+        Users.logout.args[0][0](null, 'res');
+        expect($rootScope.currentUser).not.toBeDefined();
+        expect($state.go.called).toBe(true);
+        expect(Auth.logout.called).toBe(true);
       });
     });
 
@@ -65,12 +70,14 @@ describe('HeaderCtrl Controller tests', function() {
       it('Should define $scope.editUser', function() {
         expect($scope.editUser).toBeDefined();
         $mdDialog.show = sinon.stub().returns($mdDialog);
-        $mdDialog.then = sinon.stub();
+        $mdDialog.then = sinon.spy();
         $scope.editUser();
         expect($mdDialog.show.called).toBe(true);
         expect(typeof $mdDialog.show.args[0][0]).toBe('object');
         expect($mdDialog.then.called).toBe(true);
         expect($mdDialog.then.args[0].length).toBe(2);
+        $mdDialog.then.args[0][0]();
+        $mdDialog.then.args[0][1]();
         expect(typeof $mdDialog.then.args[0][0]).toBe('function');
         expect(typeof $mdDialog.then.args[0][1]).toBe('function');
       });
@@ -86,6 +93,8 @@ describe('HeaderCtrl Controller tests', function() {
         expect(typeof $mdDialog.show.args[0][0]).toBe('object');
         expect($mdDialog.then.called).toBe(true);
         expect($mdDialog.then.args[0].length).toBe(2);
+        $mdDialog.then.args[0][0]();
+        $mdDialog.then.args[0][1]();
         expect(typeof $mdDialog.then.args[0][0]).toBe('function');
         expect(typeof $mdDialog.then.args[0][1]).toBe('function');
       });
@@ -101,6 +110,8 @@ describe('HeaderCtrl Controller tests', function() {
         expect(typeof $mdDialog.show.args[0][0]).toBe('object');
         expect($mdDialog.then.called).toBe(true);
         expect($mdDialog.then.args[0].length).toBe(2);
+        $mdDialog.then.args[0][0]();
+        $mdDialog.then.args[0][1]();
         expect(typeof $mdDialog.then.args[0][0]).toBe('function');
         expect(typeof $mdDialog.then.args[0][1]).toBe('function');
       });
@@ -109,6 +120,12 @@ describe('HeaderCtrl Controller tests', function() {
     describe('$scope.openMenu test', function() {
     	it('Should define $scope.openMenu', function() {
     		expect($scope.openMenu).toBeDefined();
+        var cb = function(data){
+          return data;
+        };
+        cb = sinon.spy();
+        $scope.openMenu(cb, 'hannah');
+        expect(cb.called).toBe(true);
     	});
     });
 
@@ -122,6 +139,8 @@ describe('HeaderCtrl Controller tests', function() {
         expect(typeof $mdDialog.show.args[0][0]).toBe('object');
         expect($mdDialog.then.called).toBe(true);
         expect($mdDialog.then.args[0].length).toBe(2);
+        $mdDialog.then.args[0][0]();
+        $mdDialog.then.args[0][1]();
         expect(typeof $mdDialog.then.args[0][0]).toBe('function');
         expect(typeof $mdDialog.then.args[0][1]).toBe('function');
       });
@@ -137,6 +156,8 @@ describe('HeaderCtrl Controller tests', function() {
         expect(typeof $mdDialog.show.args[0][0]).toBe('object');
         expect($mdDialog.then.called).toBe(true);
         expect($mdDialog.then.args[0].length).toBe(2);
+        $mdDialog.then.args[0][0]();
+        $mdDialog.then.args[0][1]();
         expect(typeof $mdDialog.then.args[0][0]).toBe('function');
         expect(typeof $mdDialog.then.args[0][1]).toBe('function');
       });
@@ -152,6 +173,8 @@ describe('HeaderCtrl Controller tests', function() {
         expect(typeof $mdDialog.show.args[0][0]).toBe('object');
         expect($mdDialog.then.called).toBe(true);
         expect($mdDialog.then.args[0].length).toBe(2);
+        $mdDialog.then.args[0][0]();
+        $mdDialog.then.args[0][1]();
         expect(typeof $mdDialog.then.args[0][0]).toBe('function');
         expect(typeof $mdDialog.then.args[0][1]).toBe('function');
       });
