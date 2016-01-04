@@ -25,10 +25,13 @@ describe('editUser DialogController tests', function() {
       }
     });
     httpBackend.whenPUT(/\/api\/users\/(.+)/,
-     undefined, undefined, ['id']).respond(200, {
+      undefined, undefined, ['id']).respond(200, {
       res: 'res'
     });
     httpBackend.when('GET', 'views/home.html').respond(200, {});
+    httpBackend.when('GET', '/api/roles').respond(200, [{
+      res: 'res'
+    }]);
     $rootScope = $injector.get('$rootScope');
     $scope = $rootScope;
     $mdDialog = $injector.get('$mdDialog');
@@ -62,17 +65,37 @@ describe('editUser DialogController tests', function() {
 
     describe('Roles.query test', function() {
       it('Should define Roles.query', function() {
+        httpBackend.flush();
         expect(Roles.query.called).toBe(true);
+        Roles.query.args[0][0]('hannah');
+        expect($scope.roles).toBeDefined();
+        expect($scope.roles).toBe('hannah');
       });
     });
 
     describe('$scope.update test', function() {
       it('Should define $scope.update', function() {
         expect($scope.update).toBeDefined();
-        Users.update = sinon.stub();
+        Users.update = sinon.spy();
         httpBackend.flush();
         $scope.update();
         expect(Users.update.called).toBe(true);
+        Auth.setToken = sinon.stub();
+        $scope.user = {
+          name: 'hannah',
+          token: 'hannah'
+        };
+        Users.update.args[0][1]({
+          name: 'hannah',
+          token: 'hannah'
+        });
+        expect($rootScope.currentUser).toBeDefined();
+        expect(Auth.setToken.called).toBe(true);
+        expect($scope.message)
+          .toBe('You have successfully updated this user\'s profile.');
+        Users.update.args[0][2]();
+        expect($scope.message)
+          .toBe('There was a problem updating this profile.');
       });
     });
 
