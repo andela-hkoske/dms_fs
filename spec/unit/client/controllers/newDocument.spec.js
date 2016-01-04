@@ -61,12 +61,18 @@ describe('DocDialogController tests', function() {
     describe('Roles.query test', function() {
       it('Should define Roles.query', function() {
         expect(Roles.query.called).toBe(true);
+        Roles.query.args[0][0]('hannah');
+        expect($scope.roles).toBeDefined();
+        expect($scope.roles).toBe('hannah');
       });
     });
 
     describe('Types.query test', function() {
       it('Should define Types.query', function() {
         expect(Types.query.called).toBe(true);
+        Types.query.args[0][0]('hannah');
+        expect($scope.types).toBeDefined();
+        expect($scope.types).toBe('hannah');
       });
     });
 
@@ -74,7 +80,12 @@ describe('DocDialogController tests', function() {
       it('Should define $scope.create', function() {
         expect($scope.create).toBeDefined();
         Documents.save = sinon.stub();
-        $scope.roles = [];
+        $scope.roles = [{
+          checked: 'checked',
+          name: 'name'
+        }, {
+          name: 'name'
+        }];
         $scope.doc = {
           roles: [],
           type: {
@@ -84,8 +95,15 @@ describe('DocDialogController tests', function() {
         $scope.create();
         httpBackend.flush();
         expect(Documents.save.called).toBe(true);
+        Documents.save.args[0][1]();
+        expect($scope.message).toBeDefined();
+        expect($scope.message)
+        .toBe('You have successfully created this document. ');
+        Documents.save.args[0][2]();
+        expect($scope.message)
+        .toBe('There was a problem creating this document.');
       });
     });
-    
+
   });
 });
