@@ -1,7 +1,7 @@
 describe('SignupCtrl Controller tests', function() {
   var scope,
     Users,
-    controller, state, Auth, Roles, httpBackend;
+    controller, Auth, Roles, httpBackend;
 
   beforeEach(function() {
     module('docman');
@@ -39,7 +39,6 @@ describe('SignupCtrl Controller tests', function() {
     controller = $controller('SignupCtrl', {
       $scope: scope
     });
-    state = $injector.get('$state');
     Auth = $injector.get('Auth');
   }));
 
@@ -53,18 +52,33 @@ describe('SignupCtrl Controller tests', function() {
     describe('Roles.query tests', function() {
       it('Should find that Roles.query is called', function() {
         expect(Roles.query.called).toBe(true);
+        Roles.query.args[0][0]('hannah');
+        expect(scope.roles).toBeDefined();
+        expect(scope.roles).toBe('hannah');
       });
     });
 
     describe('$scope.save tests', function() {
       it('Should find that Roles.query is called', function() {
         Users.save = sinon.spy();
-        state.go = sinon.stub();
         scope.save();
         httpBackend.flush();
         expect(Users.save.called).toBe(true);
         expect(typeof Users.save.args[0][1]).toBe('function');
-        expect(state.go.called).toBeDefined();
+        Users.save.args[0][1]();
+        expect(scope.message).toBe('Successfully signed up. You will now' +
+          ' be redirected to login. Login to proceed.');
+        Users.save.args[0][2]({
+          data: {
+            message: 'err'
+          }
+        });
+        expect(scope.message).toBe('err');
+        Users.save.args[0][2]({
+          data: 'err'
+        });
+        expect(scope.message).toBe('There was a problem signing you up. ' +
+          'Try again with different credentials.');
       });
     });
 
