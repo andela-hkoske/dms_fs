@@ -61,6 +61,12 @@ describe('NewRoleDialogController tests', function() {
         $scope.create();
         httpBackend.flush();
         expect(Roles.save.called).toBe(true);
+        Roles.save.args[0][1]();
+        expect($scope.message).toBeDefined();
+        expect($scope.message).toBe('You have successfully created this role');
+        Roles.save.args[0][2]();
+        expect($scope.message).toBe('There was a problem creating a role. ' +
+          'Try again or change the name of the role.');
       });
     });
 
