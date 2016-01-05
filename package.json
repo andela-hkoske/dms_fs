@@ -4,7 +4,8 @@
   "description": "Checkpoint 3",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 0"
+    "pretest": "node index.js & sleep 15\n",
+    "test": "gulp test"
   },
   "repository": {
     "type": "git",
