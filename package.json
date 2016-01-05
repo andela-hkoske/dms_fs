@@ -1,23 +1,24 @@
 {
   "name": "document-manager",
   "version": "1.0.0",
-  "description": "Checkpoint 3",
+  "description": "Checkpoint 4",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "pretest": "node index.js & sleep 15\n",
     "test": "gulp test",
     "build": "gulp heroku:production"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/andela-hkoske/dms.git"
+    "url": "git+https://github.com/andela-hkoske/dms_fs.git"
   },
   "author": "Hannah Koske",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/andela-hkoske/dms/issues"
+    "url": "https://github.com/andela-hkoske/dms_fs/issues"
   },
-  "homepage": "https://github.com/andela-hkoske/dms#readme",
+  "homepage": "https://github.com/andela-hkoske/dms_fs#readme",
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.14.1",
@@ -50,5 +51,8 @@
     "sinon": "^1.17.2",
     "superagent": "^1.4.0",
     "vinyl-source-stream": "^1.1.0"
+  },
+  "engines": {
+    "node": "0.12.5"
   }
 }
