@@ -218,6 +218,12 @@ module.exports = {
       }
       user_info = user;
       var next = function() {
+        if (!req.body.name) {
+          req.body.name = {};
+        }
+        if (!req.body.role) {
+          req.body.role = {};
+        }
         user_upd = {
           name: {
             first: req.body.name.first || user_info.name.first,
@@ -257,6 +263,8 @@ module.exports = {
             next();
           }
         });
+      } else {
+        next();
       }
     });
   },
