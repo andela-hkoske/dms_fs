@@ -4,7 +4,8 @@
   "description": "Checkpoint 3",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 0"
+    "pretest": "node index.js & sleep 15\n",
+    "test": "gulp test"
   },
   "repository": {
     "type": "git",
@@ -42,9 +43,12 @@
     "karma": "^0.13.15",
     "karma-chrome-launcher": "^0.2.2",
     "karma-coverage": "^0.5.3",
+    "karma-firefox-launcher": "^0.1.7",
     "karma-jasmine": "^0.3.6",
+    "karma-sinon": "^1.0.4",
     "mongoose": "^4.2.3",
     "morgan": "^1.6.1",
+    "sinon": "^1.17.2",
     "superagent": "^1.4.0",
     "vantage": "^1.5.1",
     "vinyl-source-stream": "^1.1.0",

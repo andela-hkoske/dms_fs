@@ -1,0 +1,35 @@
+.md-padding.signup(layout='row' layout-align='center center')
+  md-card.card(flex='33')
+    md-card-header.md-padding.header
+      md-card-header-text.header-text.md-padding
+        span.md-display-2 Sign Up
+    md-card-content.md-padding.md-margin(layout='column')
+      .fit(layout='row')
+        i.fa.fa-user.fa-2x.icon
+        md-input-container.md-padding(flex)
+          input(type='text' ng-required='true' ng-model='user.firstname' placeholder='First Name')
+      .fit(layout='row')
+        i.fa.fa-user.fa-2x.icon
+        md-input-container.md-padding(flex)
+          input(type='text' ng-required='true' ng-model='user.lastname'  placeholder='Last Name')
+      .fit(layout='row')
+        i.fa.fa-at.fa-2x.icon
+        md-input-container.md-padding(flex)
+          input(type='email' ng-required='true' ng-model='user.email'  placeholder='Email')
+      .fit(layout='row')
+        i.fa.fa-user-secret.fa-2x.icon
+        md-input-container.md-padding(flex)
+          input(type='text' ng-required='true' ng-model='user.username' placeholder='Username')
+      .fit(layout='row')
+        i.fa.fa-key.fa-2x.icon
+        md-input-container.md-padding(flex)
+          input(type='password' ng-required='true' ng-model='user.password' placeholder='Password')
+      .fit(layout='row' ng-if='roles')
+        i.fa.fa-lock.fa-2x.icon
+        md-select.md-padding.md-margin(ng-model="user.role" ng-required='true' placeholder='Role' flex)
+            md-option(ng-repeat="role in roles" value="{{role._id}}")
+              | {{role.title}}
+      div(layout='row' layout-align='center center')
+        p.md-padding.link {{message}}
+      md-button.md-raised.md-primary.button(ng-click='save()')
+        p.md-title Sign me up

@@ -1,0 +1,10 @@
+doctype html
+html(lang='en' ng-app="docman")
+  head
+    include shared/head
+  body
+    main.page-wrap
+      include shared/header
+      md-content.view(ui-view)
+    footer.site-footer
+      include shared/footer
