@@ -6,7 +6,7 @@ angular.module('docman.controllers')
         Users.login($scope.user, function(err, res) {
           if (err && !res) {
             $scope.message = err.message ||
-              'There was a problem loggin you in.';
+              'There was a problem logging you in.';
           } else {
             Auth.setToken(res.token);
             $rootScope.currentUser = res.user;

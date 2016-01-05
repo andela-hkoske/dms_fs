@@ -41,11 +41,13 @@ app.set('views', path.join(__dirname, 'server/views'));
 app.set('view engine', 'jade');
 
 
-app.use(morgan('dev', {
-  skip: function(req, res) {
-    return res.statusCode < 400;
-  }
-}));
+app.use(morgan('dev'
+  // , {
+  // skip: function(req, res) {
+  //   return res.statusCode < 400;
+  // }
+  // }
+));
 
 app.use(express.static(path.join(__dirname, './public')));
 
