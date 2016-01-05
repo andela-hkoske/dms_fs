@@ -53,21 +53,22 @@ angular.module('docman.controllers')
       };
       var deleteDocumentFn = function() {
         Documents.remove({
-          id: chosenDoc._id
+          id: $scope.selectedDoc._id
         }, function() {
           Utils.toast('You have successfully deleted document: ' +
-            chosenDoc.title);
+            $scope.selectedDoc.title);
           delete $scope.doc;
           chosenDoc = undefined;
+          $scope.selectedDoc = undefined;
           initDocs($scope.selectedUser._id);
           initUsers();
         });
       };
       $scope.deleteDoc = function(event) {
         Utils.dialog('Warning: Delete Document, ' +
-          chosenDoc.title + '?',
+          $scope.selectedDoc.title + '?',
           'Are you sure you want to delete the document, ' +
-          chosenDoc.title + '?',
+          $scope.selectedDoc.title + '?',
           event, deleteDocumentFn
         );
       };
@@ -113,6 +114,7 @@ angular.module('docman.controllers')
 
       $scope.setDoc = function(doc) {
         chosenDoc = doc;
+        $scope.selectedDoc = doc;
         Documents.get({
             id: doc._id
           },
@@ -159,9 +161,11 @@ angular.module('docman.controllers')
         };
       }
 
+      $scope.userCtrl = DialogController;
+
       $scope.editUser = function(ev) {
         $mdDialog.show({
-            controller: DialogController,
+            controller: $scope.userCtrl,
             templateUrl: 'views/update-user.html',
             parent: angular.element(document.body),
             targetEvent: ev,
@@ -172,7 +176,6 @@ angular.module('docman.controllers')
 
       function DocDialogController($scope, $mdDialog) {
         $scope.doc = chosenDoc;
-        console.log(chosenDoc);
         $scope.hide = function() {
           $mdDialog.hide();
         };
@@ -239,9 +242,11 @@ angular.module('docman.controllers')
         };
       }
 
+      $scope.docCtrl = DocDialogController;
+
       $scope.editDoc = function(ev) {
         $mdDialog.show({
-            controller: DocDialogController,
+            controller: $scope.docCtrl,
             templateUrl: 'views/edit-document.html',
             parent: angular.element(document.body),
             targetEvent: ev,
