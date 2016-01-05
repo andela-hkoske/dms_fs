@@ -4,7 +4,7 @@
   "description": "Checkpoint 3",
   "main": "index.js",
   "scripts": {
-    "pretest": "node index.js & sleep 5\n",
+    "pretest": "node index.js & sleep 15\n",
     "test": "gulp test"
   },
   "repository": {
