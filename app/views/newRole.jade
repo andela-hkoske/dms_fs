@@ -1,0 +1,18 @@
+md-dialog.update-user(aria-label='New Role')
+    md-toolbar
+      .md-toolbar-tools
+        h2(flex) Roles
+        md-button(ng-click='cancel()')
+          md-tooltip Close
+          i.fa.fa-lg.fa-times-circle
+    md-dialog-content.types.fit(layout='column')
+      .md-padding(layout='column')
+        md-input-container.md-padding(flex)
+          label Role Title
+          input(type='text' ng-required='true' ng-model='title')
+        div(layout='row' layout-align='center center')
+          p.md-padding.link {{message}}
+        div(flex layout-align='center center')
+          md-button.md-raised.md-primary.button(ng-click='create()')
+            p.md-title Create
+

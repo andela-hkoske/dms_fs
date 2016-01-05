@@ -121,8 +121,10 @@ module.exports = {
         .put('http://localhost:3000/api/users/' + id)
         .set('x-access-token', token)
         .send({
-          firstname: first,
-          lastname: last
+          name: {
+            first: first,
+            last: last
+          }
         })
         .end(function(err, res) {
           expect(res.status).toBe(200);

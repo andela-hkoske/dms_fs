@@ -15,20 +15,39 @@ function createToken(user) {
 }
 
 module.exports = {
-  authenticate: function(req, res, next) {
-    var respond = function(err, decoded) {
-      if (!err) {
-        req.decoded = decoded;
-        next();
-      } else {
-        return res.status(403).send({
-          success: false,
-          message: 'Failed to authenticate user. No token provided.'
-        });
-      }
-    };
+  session: function(req, res) {
     var token = req.headers['x-access-token'];
-    jsonwebtoken.verify(token, secretKey, respond);
+    if (token && token !== 'null') {
+      jsonwebtoken.verify(token, secretKey,
+        function(err, decoded) {
+          if (err) {
+            res.status(403).json({
+              error: 'Session has expired or does not exist.'
+            });
+          } else {
+            User.findById(decoded._id)
+              .populate('role')
+              .exec(function(err, user) {
+                if (err) {
+                  res.status(500).json({
+                    message: 'Error retrieving user',
+                    err: err
+                  });
+                } else if (!user) {
+                  res.status(500).json({
+                    message: 'User not found'
+                  });
+                } else {
+                  delete user.password;
+                  req.decoded = user;
+                  res.json(user);
+                }
+              });
+          }
+        });
+    } else {
+      return res.json(req.decoded);
+    }
   },
 
   signup: function(req, res) {
@@ -183,7 +202,8 @@ module.exports = {
           return res.send({
             success: true,
             message: 'Successfully logged in',
-            token: tokenStr
+            token: tokenStr,
+            user: user
           });
         }
       }
@@ -197,6 +217,40 @@ module.exports = {
         return res.status(500).send(err);
       }
       user_info = user;
+      var next = function() {
+        if (!req.body.name) {
+          req.body.name = {};
+        }
+        if (!req.body.role) {
+          req.body.role = {};
+        }
+        user_upd = {
+          name: {
+            first: req.body.name.first || user_info.name.first,
+            last: req.body.name.last || user_info.name.last
+          },
+          email: req.body.email || user_info.email,
+          role: req.body.role._id || user_info.role,
+          username: req.body.username || user_info.username,
+          password: req.body.password || user_info.password
+        };
+        User.findByIdAndUpdate(req.params.id, user_upd)
+          .populate('role')
+          .exec(function(err, user) {
+            if (err) {
+              return res.status(500).send(err.errmsg || err.message || err);
+            } else {
+              delete user.password;
+              var tokenStr = createToken(user);
+              return res.json({
+                success: true,
+                message: 'Successfully updated your profile',
+                token: tokenStr,
+                user: user
+              });
+            }
+          });
+      };
       if (req.body.password) {
         bcrypt.hash(req.body.password, null, null, function(err, hash) {
           if (err) {
@@ -206,29 +260,12 @@ module.exports = {
             });
           } else {
             req.body.password = hash;
+            next();
           }
         });
+      } else {
+        next();
       }
-      user_upd = {
-        name: {
-          first: req.body.firstname || user_info.name.first,
-          last: req.body.lastname || user_info.name.last
-        },
-        email: req.body.email || user_info.email,
-        role: req.body.role || user_info.role,
-        username: req.body.username || user_info.username,
-        password: req.body.password || user_info.password
-      };
-      User.findByIdAndUpdate(req.params.id, user_upd, function(err) {
-        if (err) {
-          return res.status(500).send(err.errmsg || err.message || err);
-        } else {
-          return res.json({
-            success: true,
-            message: 'Successfully updated your profile'
-          });
-        }
-      });
     });
   },
 
@@ -243,6 +280,26 @@ module.exports = {
           return res.status(500).send(err);
         }
         return res.send(documents);
+      });
+  },
+  countUserDocs: function(req, res) {
+    Document
+      .aggregate()
+      .group({
+        _id: '$owner',
+        count: {
+          $sum: 1
+        }
+      })
+      .exec(function(err, docs) {
+        if (err) {
+          res.status(500).send({
+            success: false,
+            message: 'There was a problem fetching the documents'
+          });
+        } else {
+          res.send(docs);
+        }
       });
   }
 };

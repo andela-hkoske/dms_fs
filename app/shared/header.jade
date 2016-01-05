@@ -1,0 +1,107 @@
+div.md-whiteframe-6dp.app-header(flex layout='row' ng-controller='HeaderCtrl')
+  div(layout='row'  hide-sm)
+    img.logo(src='images/logo.png')
+    p.md-display-1.app-title DocMan
+  .logo-margin(layout='row' hide-gt-sm)
+    img.small-logo(src='images/logo.png')
+    p.md-headline.app-title DocMan
+  div(flex layout='row' layout-align='end center' hide-sm hide-md)
+    md-button.md-fab.md-mini.button-grey(ui-sref='home')
+      md-tooltip Home
+      i.fa.fa-lg.fa-home
+    md-button.md-fab.md-mini.button-grey(ui-sref='about')
+      md-tooltip About
+      i.fa.fa-lg.fa-info
+    md-button.md-fab.md-mini.button-grey(ng-if='!currentUser' ui-sref='login')
+      md-tooltip Login
+      i.fa.fa-lg.fa-sign-in
+    md-button.md-fab.md-mini.md-primary(ng-if='!currentUser' ui-sref='signup')
+      md-tooltip Sign Up
+      i.fa.fa-lg.fa-pencil
+    md-button.md-fab.md-mini.md-primary(ng-if='currentUser && currentUser.role.title !== \'Viewer\'' ui-sref='dashboard({id: currentUser._id})')
+      md-tooltip Documents Dashboard
+      i.fa.fa-lg.fa-tachometer
+    md-button.md-fab.md-mini.md-primary(ng-if='currentUser && currentUser.role.title !== \'Viewer\'' ng-click='showTypes($event)')
+      md-tooltip Types
+      i.fa.fa-lg.fa-file-text
+    md-button.md-fab.md-mini.md-primary(ng-if='currentUser && currentUser.role.title !== \'Viewer\'' ng-click='showRoles($event)')
+      md-tooltip Roles
+      i.fa.fa-lg.fa-group
+    div(ng-if='currentUser && currentUser.role.title !== \'Viewer\'')
+      md-menu(md-offset="0 -5")
+        md-button.md-fab.md-mini.md-primary(aria-label="Open create menu" class="md-icon-button" ng-click="openMenu($mdOpenMenu, $event)")
+          md-tooltip Create
+          i.fa.fa-lg.fa-plus(md-menu-origin)
+        md-menu-content(width="4")
+          md-menu-item
+            md-button(md-menu-align-target  ng-click="createDoc($event)") 
+              md-icon.fa.fa-lg.fa-file
+              | New Document
+          md-menu-item
+            md-button(ng-click="newRole($event)")
+              md-icon.fa.fa-lg.fa-group
+              | New Role
+          md-menu-item
+            md-button(ng-click="newType($event)") 
+              md-icon.fa.fa-lg.fa-file-text
+              | New Type
+    md-button.md-fab.md-mini.md-primary(ng-if='currentUser' ng-click='editUser($event)')
+      md-tooltip {{currentUser.name.first}} {{currentUser.name.last}}
+      i.fa.fa-lg.fa-user
+    md-button.md-fab.md-mini.button-grey(ng-if='currentUser' ng-click='logout()')
+      md-tooltip Sign Out
+      i.fa.fa-lg.fa-sign-out
+  div(flex layout='row' layout-align='end center' hide-gt-md)
+    md-menu(md-offset="0 -5")
+      md-button.md-fab.md-mini.button-grey(aria-label="Open menu" class="md-icon-button" ng-click="openMenu($mdOpenMenu, $event)")
+        md-tooltip Menu
+        i.fa.fa-lg.fa-bars(md-menu-origin)
+      md-menu-content(width="4")
+        md-menu-item
+          md-button(md-menu-align-target ui-sref='home')
+            md-icon.fa.fa-lg.fa-home
+            | Home
+        md-menu-item
+          md-button(ui-sref='about')
+            md-icon.fa.fa-lg.fa-info
+            | About
+        md-menu-item(ng-if='!currentUser')
+          md-button(ui-sref='login')
+            md-icon.fa.fa-lg.fa-sign-in
+            | Login
+        md-menu-item(ng-if='!currentUser')
+          md-button(ui-sref='signup')
+            md-icon.fa.fa-lg.fa-pencil
+            | Sign Up
+        md-menu-item(ng-if='currentUser && currentUser.role.title !== \'Viewer\'')
+          md-button(ui-sref='dashboard({id: currentUser._id})')
+            md-icon.fa.fa-lg.fa-tachometer
+            | Doc Dashboard
+        md-menu-item(ng-if='currentUser && currentUser.role.title !== \'Viewer\'')
+          md-button(ng-click='showTypes($event)')
+            md-icon.fa.fa-lg.fa-file-text
+            | Types
+        md-menu-item(ng-if='currentUser && currentUser.role.title !== \'Viewer\'')
+          md-button(ng-click='showRoles($event)')
+            md-icon.fa.fa-lg.fa-group
+            | Roles
+        md-menu-item(ng-if='currentUser && currentUser.role.title !== \'Viewer\'')
+          md-button(md-menu-align-target  ng-click="createDoc($event)") 
+            md-icon.fa.fa-lg.fa-file
+            | New Document
+        md-menu-item(ng-if='currentUser && currentUser.role.title !== \'Viewer\'')
+          md-button(ng-click="newRole($event)")
+            md-icon.fa.fa-lg.fa-group
+            | New Role
+        md-menu-item(ng-if='currentUser && currentUser.role.title !== \'Viewer\'')
+          md-button(ng-click="newType($event)") 
+            md-icon.fa.fa-lg.fa-file-text
+            | New Type
+        md-menu-item(ng-if='currentUser')
+          md-button(ng-click="editUser($event)") 
+            md-icon.fa.fa-lg.fa-user
+            | Your Profile
+        md-menu-item(ng-if='currentUser')
+          md-button(ng-click="logout()") 
+            md-icon.fa.fa-lg.fa-sign-out
+            | Sign Out

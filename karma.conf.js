@@ -11,13 +11,21 @@ module.exports = function(config) {
 
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-    frameworks: ['jasmine'],
+    frameworks: ['jasmine', 'sinon'],
 
 
     // list of files / patterns to load in the browser
     files: [
+      'public/lib/angular/angular.min.js',
+      'public/lib/angular-ui-router/release/angular-ui-router.min.js',
+      'public/lib/angular-aria/angular-aria.min.js',
+      'public/lib/angular-animate/angular-animate.min.js',
+      'public/lib/angular-material/angular-material.min.js',
+      'public/lib/angular-resource/angular-resource.min.js',
+      'public/lib/angular-route/angular-route.min.js',
+      'public/lib/angular-mocks/angular-mocks.js',
       'public/js/application.js',
-      'tests/unit/client/**/*.js'
+      'spec/unit/client/**/*.js'
     ],
 
 
@@ -70,7 +78,7 @@ module.exports = function(config) {
     // - Safari
     // - PhantomJS
     // - IE
-    browsers: ['Chrome'], // 'Firefox', 'Safari'],
+    browsers: ['Firefox'], // 'Chrome', 'Safari'],
 
     // https://www.youtube.com/watch?v=FQwZrOAmMAc
     // To turn off chrome's security limitations that do
@@ -87,7 +95,13 @@ module.exports = function(config) {
     // if true, Karma captures browsers, runs the tests and exits
     singleRun: false,
     coverageReporter: {
-      type: 'html',
+      reporters: [{
+        type: 'html',
+        subdir: 'html'
+      }, {
+        type: 'lcovonly',
+        subdir: 'lcov'
+      }],
       // type: 'lcov',
       dir: 'coverage/'
     }
