@@ -123,5 +123,8 @@ gulp.task('watch', function() {
 gulp.task('build', ['jade', 'less', 'static-files',
   'images', 'browserify', 'bower'
 ]);
-gulp.task('test', ['test:bend', 'test:fend']);
+gulp.task('heroku:production', ['build']);
+gulp.task('heroku:staging', ['build']);
+gulp.task('production', ['nodemon', 'build']);
+gulp.task('test', ['test:fend', 'test:bend']);
 gulp.task('default', ['nodemon', 'watch', 'build']);
