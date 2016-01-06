@@ -84,7 +84,7 @@ gulp.task('codeclimate-reporter', ['test:fend'], function() {
       read: false
     })
     .pipe(reporter({
-      token: process.env.CODECLIMATE_TOKEN,
+      token: process.env.CODECLIMATE_REPO_TOKEN,
       verbose: true
     }));
 });
