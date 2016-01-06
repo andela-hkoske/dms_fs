@@ -345,7 +345,7 @@ module.exports = {
         type: types[0]._id
       })
       .end(function(err, res) {
-        expect(res.status).toBe(403);
+        expect(res.status).toBe(401);
         expect(res.body.success).toBe(false);
         expect(res.body.message).toBe('Failed to authenticate user' +
           '. No token provided.');
