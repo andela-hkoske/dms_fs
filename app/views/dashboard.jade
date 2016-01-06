@@ -1,5 +1,11 @@
-div(layout='row' flex)
-div.dashboard(layout="column" ng-cloak)
+.md-padding.div-404(layout='column' layout-align='center center' ng-if='!currentUser')
+  md-card.md-padding.card(layout='column' layout-gt-md='row' layout-align='center center' flex)
+    p.md-display-3.md-padding Oops!
+    .md-padding.text(layout='column' layout-align-gt-md='center start' layout-align='center center' flex)
+      p.md-headline SORRY
+      p.md-title.light-text You have to login to access this page. 
+      a.link(ui-sref='login') Login
+.dashboard(layout="column" ng-cloak ng-if='currentUser')
   section(layout='row' flex)
     md-sidenav.md-sidenav-left.md-whiteframe-z2(md-is-locked-open="$mdMedia('gt-md')" md-component-id="left")
       md-toolbar.md-theme-indigo
