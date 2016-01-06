@@ -21,7 +21,7 @@ module.exports = {
       jsonwebtoken.verify(token, secretKey,
         function(err, decoded) {
           if (err) {
-            res.status(403).json({
+            res.status(401).json({
               error: 'Session has expired or does not exist.'
             });
           } else {
