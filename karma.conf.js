@@ -102,7 +102,6 @@ module.exports = function(config) {
         type: 'lcovonly',
         subdir: 'lcov'
       }],
-      // type: 'lcov',
       dir: 'coverage/'
     }
   });
