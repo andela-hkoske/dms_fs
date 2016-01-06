@@ -8,9 +8,11 @@ angular.module('docman.services')
           return false;
         }
       },
+
       setToken: function(token) {
         Token.set(token);
       },
+
       logout: function() {
         Token.remove();
       }

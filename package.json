@@ -7,6 +7,7 @@
     "start": "node index.js",
     "pretest": "node index.js & sleep 15\n",
     "test": "gulp test",
+    "posttest": "pkill node",
     "build": "gulp heroku:production"
   },
   "repository": {
