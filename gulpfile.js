@@ -1,4 +1,4 @@
-const ENV = process.env.NODE_ENV || 'development';
+var ENV = process.env.NODE_ENV || 'development';
   if (ENV === 'development') {
     require('dotenv').load();
   }
