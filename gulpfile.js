@@ -55,7 +55,7 @@ gulp.task('bower', function() {
     .pipe(gulp.dest('public/lib/'));
 });
 
-gulp.task('test:fend', ['browserify', 'bower'], function() {
+gulp.task('test:fend', ['test:bend', 'browserify', 'bower'], function() {
   // Be sure to return the stream
   return gulp.src(paths.unitTests)
     .pipe(karma({
