@@ -64,7 +64,7 @@ module.exports = {
         title: title
       })
       .end(function(err, res) {
-        expect(err.status).toBe(403);
+        expect(err.status).toBe(401);
         expect(res.body.success).toBe(false);
         expect(res.body.message).toBe('Failed to authenticate user' +
           '. No token provided.');
