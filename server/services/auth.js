@@ -5,18 +5,22 @@ var secretKey = config.secretKey;
 
 module.exports = {
   authenticate: function(req, res, next) {
-    var respond = function(err, decoded) {
-      if (!err) {
-        req.decoded = decoded;
-        next();
-      } else {
-        return res.status(403).send({
+    var token = req.headers['x-access-token'];
+    if (token) {
+      try {
+        req.decoded = jsonwebtoken.verify(token, secretKey);
+      } catch (err) {
+        return res.status(401).send({
           success: false,
-          message: 'Failed to authenticate user. No token provided.'
+          message: 'Failed to authenticate user. Invalid token.'
         });
       }
-    };
-    var token = req.headers['x-access-token'];
-    jsonwebtoken.verify(token, secretKey, respond);
+      next();
+    } else {
+      return res.status(401).send({
+        success: false,
+        message: 'Failed to authenticate user. No token provided.'
+      });
+    }
   }
 };
