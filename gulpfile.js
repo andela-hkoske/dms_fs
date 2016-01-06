@@ -1,3 +1,7 @@
+const ENV = process.env.NODE_ENV || 'development';
+  if (ENV === 'development') {
+    require('dotenv').load();
+  }
 var gulp = require('gulp'),
   less = require('gulp-less'),
   jade = require('gulp-jade'),
@@ -80,7 +84,7 @@ gulp.task('test:bend', function() {
 });
 
 gulp.task('codeclimate-reporter', ['test:fend'], function() {
-  return gulp.src('coverage/lcov/lcov.info', {
+  return gulp.src(['coverage/lcov/lcov.info'], {
       read: false
     })
     .pipe(reporter({
