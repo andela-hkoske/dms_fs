@@ -219,7 +219,7 @@ module.exports = {
         return res.status(500).send(err);
       }
       user_info = user;
-      var next = function() {
+      var save = function() {
         if (!req.body.name) {
           req.body.name = {};
         }
@@ -262,11 +262,11 @@ module.exports = {
             });
           } else {
             req.body.password = hash;
-            next();
+            save();
           }
         });
       } else {
-        next();
+        save();
       }
     });
   },
