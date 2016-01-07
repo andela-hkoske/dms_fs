@@ -1,5 +1,6 @@
 (function() {
   'use strict';
+  // Sub-modules of the app
   angular.module('docman.controllers', []);
   angular.module('docman.services', []);
   angular.module('docman.filters', []);
@@ -27,7 +28,7 @@
   require('./controllers/header');
   require('./controllers/signup');
 
-
+  // Definition of docman app and its dependencies
   window.app = angular.module('docman', [
     'docman.controllers',
     'docman.services',
@@ -39,6 +40,7 @@
     'ngMaterial'
   ]);
 
+  // Checks if their is a currenly logged in user/ valid session
   window.app.run(['$rootScope', 'Users',
     function($rootScope, Users) {
       Users.session(function(err, res) {
@@ -59,6 +61,7 @@
       // For any unmatched url, redirect to /state1
       $urlRouterProvider.otherwise('/404');
 
+      // The app theme
       $mdThemingProvider.theme('default')
         .primaryPalette('blue')
         .accentPalette('blue')
@@ -66,6 +69,7 @@
           default: '200'
         });
 
+      // The various states
       $stateProvider
         .state('home', {
           url: '/',
