@@ -1,19 +1,28 @@
 angular.module('docman.controllers')
-  .controller('DocDialogController', 
+  .controller('DocDialogController',
   	['$scope', '$mdDialog', 'Types', 'Roles', 'Documents',
     function($scope, $mdDialog, Types, Roles, Documents) {
+      // Hides the dialog
       $scope.hide = function() {
         $mdDialog.hide();
       };
+
+      // Closes the dialog
       $scope.cancel = function() {
         $mdDialog.cancel();
       };
+
+      // Fetches all the roles saved in the database
       Roles.query(function(res) {
         $scope.roles = res;
       });
+
+      // Fetches all the types saved in the database
       Types.query(function(res) {
         $scope.types = res;
       });
+
+      // Creates a new document
       $scope.create = function() {
         var roles = $scope.roles.map(function(value) {
           if (value.checked) {

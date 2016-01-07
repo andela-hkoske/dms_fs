@@ -4,11 +4,12 @@ angular.module('docman.controllers')
     function($scope, $mdSidenav, $mdMedia,
       $mdDialog, Users, Documents, Roles, Utils, Types) {
       var chosenUser, chosenDoc;
-
+      // Toggles the sidenav
       $scope.toggle = function() {
         $mdSidenav('left').toggle();
       };
 
+      // Get the user details and the number of documents they created
       var initUsers = function() {
         Users.getUserDocs(function(err, res) {
           if (!err) {
@@ -32,7 +33,10 @@ angular.module('docman.controllers')
           }
         });
       };
+
       initUsers();
+
+      // Deletes a user
       var deleteUserFn = function() {
         Users.remove({
           id: $scope.selectedUser._id
@@ -42,6 +46,8 @@ angular.module('docman.controllers')
         });
         initUsers();
       };
+
+      // Displays a dialog that seekd confirmation for user deletion
       $scope.deleteUser = function(event) {
         Utils.dialog('Warning: Delete User, ' +
           $scope.selectedUser.username + '?',
@@ -51,6 +57,8 @@ angular.module('docman.controllers')
           event, deleteUserFn
         );
       };
+
+      // Deletes a document
       var deleteDocumentFn = function() {
         Documents.remove({
           id: $scope.selectedDoc._id
@@ -64,6 +72,8 @@ angular.module('docman.controllers')
           initUsers();
         });
       };
+
+      // Displays a dialog that seekd confirmation for document deletion
       $scope.deleteDoc = function(event) {
         Utils.dialog('Warning: Delete Document, ' +
           $scope.selectedDoc.title + '?',
@@ -72,6 +82,8 @@ angular.module('docman.controllers')
           event, deleteDocumentFn
         );
       };
+
+      // Gets documents for a selected user
       var initDocs = function(user) {
         Users.getDocs(user, function(err, res) {
           if (!err) {
@@ -87,6 +99,8 @@ angular.module('docman.controllers')
           }
         });
       };
+
+      // Sets the selected user
       $scope.setUser = function(user) {
         $scope.selectedUser = user;
         chosenUser = user;
@@ -94,10 +108,12 @@ angular.module('docman.controllers')
         initDocs(user._id);
       };
 
+      // Sets the selected user on update of their details
       var setUpdatedUser = function(user) {
         $scope.selectedUser = user;
       };
 
+      // Sets the selected document on update of its details
       var setUpdatedDoc = function(doc) {
         $scope.doc = doc;
         $scope.doc.access = (doc.roles.map(function(value) {
@@ -112,6 +128,7 @@ angular.module('docman.controllers')
         $scope.docErr = undefined;
       };
 
+      // Sets the selected document
       $scope.setDoc = function(doc) {
         chosenDoc = doc;
         $scope.selectedDoc = doc;
@@ -137,6 +154,7 @@ angular.module('docman.controllers')
           });
       };
 
+      // Controller for user update dialog
       function DialogController($scope, $mdDialog) {
         $scope.user = chosenUser;
         $scope.hide = function() {
@@ -163,6 +181,7 @@ angular.module('docman.controllers')
 
       $scope.userCtrl = DialogController;
 
+      // Opens edit user dialog
       $scope.editUser = function(ev) {
         $mdDialog.show({
             controller: $scope.userCtrl,
@@ -174,6 +193,7 @@ angular.module('docman.controllers')
           .then(function() {}, function() {});
       };
 
+      // Controller for document update dialog
       function DocDialogController($scope, $mdDialog) {
         $scope.doc = chosenDoc;
         $scope.hide = function() {
@@ -244,6 +264,7 @@ angular.module('docman.controllers')
 
       $scope.docCtrl = DocDialogController;
 
+      // Opens the edit document dialog
       $scope.editDoc = function(ev) {
         $mdDialog.show({
             controller: $scope.docCtrl,

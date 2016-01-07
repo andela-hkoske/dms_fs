@@ -3,7 +3,7 @@ angular.module('docman.controllers')
     'Users', 'Auth',
     function($rootScope, $scope, $state, $mdDialog,
       Users, Auth) {
-      // logout
+      // Logouts the user
       $scope.logout = function() {
         Users.logout(function(err, res) {
           if (!err && res) {
@@ -14,6 +14,7 @@ angular.module('docman.controllers')
         });
       };
 
+      // Edits the user
       $scope.editUser = function(ev) {
         $mdDialog.show({
             controller: 'DialogController',
@@ -25,6 +26,7 @@ angular.module('docman.controllers')
           .then(function() {}, function() {});
       };
 
+      // Opens the dialog for types
       $scope.showTypes = function(ev) {
         $mdDialog.show({
             controller: 'TypesDialogController',
@@ -36,6 +38,7 @@ angular.module('docman.controllers')
           .then(function() {}, function() {});
       };
 
+      // Opens the dialog for roles
       $scope.showRoles = function(ev) {
         $mdDialog.show({
             controller: 'RolesDialogController',
@@ -47,10 +50,12 @@ angular.module('docman.controllers')
           .then(function() {}, function() {});
       };
 
+      // Opens the create the document
       $scope.openMenu = function($mdOpenMenu, ev) {
         $mdOpenMenu(ev);
       };
 
+      // Opens the new role dialog
       $scope.newRole = function(ev) {
         $mdDialog.show({
             controller: 'NewRoleDialogController',
@@ -62,6 +67,7 @@ angular.module('docman.controllers')
           .then(function() {}, function() {});
       };
 
+      // Opens the new type dialog
       $scope.newType = function(ev) {
         $mdDialog.show({
             controller: 'NewTypeDialogController',
@@ -73,6 +79,7 @@ angular.module('docman.controllers')
           .then(function() {}, function() {});
       };
 
+      // Opens the new document dialog
       $scope.createDoc = function(ev) {
         $mdDialog.show({
             controller: 'DocDialogController',

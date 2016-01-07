@@ -8,7 +8,8 @@
     "pretest": "node index.js & sleep 15\n",
     "test": "gulp test",
     "posttest": "pkill node",
-    "build": "gulp heroku:production"
+    "build": "gulp heroku:production",
+    "seed": "node index.js seed"
   },
   "repository": {
     "type": "git",
@@ -56,6 +57,6 @@
     "vinyl-source-stream": "^1.1.0"
   },
   "engines": {
-    "node": "0.12.5"
+    "node": "4.2.4"
   }
 }

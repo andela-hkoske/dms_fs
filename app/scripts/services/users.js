@@ -1,5 +1,6 @@
 angular.module('docman.services')
   .factory('Users', ['$resource', '$http', function($resource, $http) {
+    // Users resource
     var userRes = $resource('/api/users/:id', {
       id: '@_id'
     }, {
@@ -9,6 +10,8 @@ angular.module('docman.services')
     }, {
       stripTrailingSlashes: false
     });
+
+    // Logins a user
     userRes.login = function(user, cb) {
       $http.post('/api/users/login', user)
         .success(function(res) {
@@ -17,6 +20,8 @@ angular.module('docman.services')
           cb(err);
         });
     };
+
+    // Gets the user session
     userRes.session = function(cb) {
       $http.get('/api/users/session')
         .success(function(res) {
@@ -25,6 +30,8 @@ angular.module('docman.services')
           cb(err);
         });
     };
+
+    // Finds a particular user
     userRes.find = function(params, cb) {
       $http.post('/api/users/find', params)
         .success(function(res) {
@@ -33,6 +40,8 @@ angular.module('docman.services')
           cb(err);
         });
     };
+
+    // Logouts a user
     userRes.logout = function(cb) {
       $http.get('/api/users/logout')
         .success(function(res) {
@@ -41,6 +50,8 @@ angular.module('docman.services')
           cb(err);
         });
     };
+
+    // Gets the documents of a particular user
     userRes.getDocs = function(id, cb) {
       $http.get('/api/users/' + id + '/documents')
         .success(function(res) {
@@ -49,6 +60,8 @@ angular.module('docman.services')
           cb(err);
         });
     };
+
+    // Get users and thenumber of their documents
     userRes.getUserDocs = function(cb) {
       $http.get('/api/users/documents')
         .success(function(res) {

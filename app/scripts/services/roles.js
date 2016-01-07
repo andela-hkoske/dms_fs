@@ -1,5 +1,6 @@
 angular.module('docman.services')
   .factory('Roles', ['$resource', '$http', function($resource, $http) {
+    // Roles Resources
     var rolesRes = $resource('/api/roles/:id', {
       id: '@_id'
     }, {
@@ -9,6 +10,8 @@ angular.module('docman.services')
     }, {
       stripTrailingSlashes: false
     });
+
+    // Finds a particular role
     rolesRes.find = function(params, cb) {
       $http.post('/api/roles/find', params)
         .success(function(res) {
