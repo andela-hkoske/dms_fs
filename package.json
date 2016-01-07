@@ -52,6 +52,7 @@
     "morgan": "^1.6.1",
     "sinon": "^1.17.2",
     "superagent": "^1.4.0",
+    "throng": "^1.0.1",
     "vinyl-source-stream": "^1.1.0"
   },
   "engines": {
