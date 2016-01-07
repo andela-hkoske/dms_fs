@@ -1,12 +1,17 @@
 angular.module('docman.controllers')
   .controller('NewRoleDialogController', ['$scope', '$mdDialog', 'Roles',
     function($scope, $mdDialog, Roles) {
+      // Hides the dialog
       $scope.hide = function() {
         $mdDialog.hide();
       };
+
+      // Closes the dialog
       $scope.cancel = function() {
         $mdDialog.cancel();
       };
+
+      // Creates a new role
       $scope.create = function() {
         Roles.save({
           title: $scope.title

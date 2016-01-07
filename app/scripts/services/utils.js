@@ -1,8 +1,11 @@
 angular.module('docman.services')
   .service('Utils', function($mdToast, $mdDialog) {
+    // Displays a toast
     this.toast = function(msg) {
       $mdToast.show($mdToast.simple().content(msg));
     };
+
+    // Displays a dialog
     this.dialog = function(title, message, event, callback) {
       $mdDialog.show(
           $mdDialog.confirm()
