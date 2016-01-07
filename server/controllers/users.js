@@ -46,7 +46,9 @@ module.exports = {
           }
         });
     } else {
-      return res.json(req.decoded);
+      return res.status(401).json({
+        error: 'No token provided.'
+      });
     }
   },
 

@@ -9,13 +9,13 @@ module.exports = {
     if (token) {
       try {
         req.decoded = jsonwebtoken.verify(token, secretKey);
+        next();
       } catch (err) {
         return res.status(401).send({
           success: false,
           message: 'Failed to authenticate user. Invalid token.'
         });
       }
-      next();
     } else {
       return res.status(401).send({
         success: false,
