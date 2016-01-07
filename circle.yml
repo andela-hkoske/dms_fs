@@ -9,7 +9,7 @@ machine:
   environment:
     NODE_ENV: test
     CIRCLE_ENV: test
-    DB_URL: mongodb://heroku_w5h8w07t:om445lqtd7pnu8ob2v1jkb2uc0@ds039155.mongolab.com:39155/heroku_w5h8w07t
+    DB_URL: mongodb://doc-man:istanbul123@ds039125.mongolab.com:39125/doc-man
     PORT: 3000
     SECRET_KEY: H46Blh801JQM3<4CdfOmT9yKMa
     CODECLIMATE_REPO_TOKEN: 8167ae56d3e5478238f015d158bae278d696085488a2e16142eb1f99f9a1cfbc
