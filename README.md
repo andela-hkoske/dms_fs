@@ -1,7 +1,21 @@
-[![Code Climate](https://codeclimate.com/github/andela-hkoske/dms_fs/badges/gpa.svg)](https://codeclimate.com/github/andela-hkoske/dms_fs)
-[![Code Climate](https://codeclimate.com/github/andela-hkoske/dms_fs/badges/coverage.svg)](https://codeclimate.com/github/andela-hkoske/dms_fs)
-[![Circle CI](https://circleci.com/gh/andela-hkoske/dms_fs.svg?style=svg)](https://circleci.com/gh/andela-hkoske/dms_fs)
-# DocMan
+<p align="center">
+  <a href="https://www.github.com/andela-hkoske/dms_fs/">
+    <img alt="DocMan" src="https://raw.github.com/andela-hkoske/dms_fs/master/app/images/logo_big.png" width="150">
+  </a>
+</p>
+<h1 align="center">
+  DocMan
+</h1>
+<p align="center">
+  For everything you’ll do, DocMan is the workspace to get it done!
+</p>
+
+<p align="center">
+ <a href="https://codeclimate.com/github/andela-hkoske/dms_fs"><img alt="Code Climate GPA" src="https://codeclimate.com/github/andela-hkoske/dms_fs/badges/gpa.svg" /></a>
+  <a href="https://circleci.com/gh/babel/babel"><img alt="CircleCI Status" src="https://img.shields.io/circleci/project/andela-hkoske/dms_fs/master.svg?style=flat&label=circle"></a>
+ <a href="https://codeclimate.com/github/andela-hkoske/dms_fs/coverage"><img alt="Code Climate Test Coverage" src="https://codeclimate.com/github/andela-hkoske/dms_fs/badges/coverage.svg" /></a>
+</p>
+
 The system manages documents, users and user roles. Each document defines access rights, which roles can access it and the date it was published. Users are categorized by roles and each user has a role defined for them.
 It is developed using ​mongoose​, an ODM for Node. The system will permit users to query it through a command line interface.
 
@@ -21,7 +35,7 @@ Navigate to the address `http://localhost:3000/` on your browser to access the a
 
 ## Running Tests
 To run tests run `npm run seed` on your terminal.
-Once completed run `gulp test` on the terminal while within the **project root directory**.
+Once completed run `npm test` on the terminal while within the **project root directory**.
 
 ## Backend
 
@@ -29,7 +43,7 @@ Docman was built off of an existing backend found [**here**](https://github.com/
 
 ## Front-end Testing
 
-Front-end testing is achieved through use of `karma`, `sinon` and `jasmine` packages for karma. `karma` acted as the test runner, `sinon` played a key role in testing anyonymous functions and `jasmine` was used to test. They will all be installed when you run `npm install` and the tests will run when you run `npm test` or `gulp test`. The tests are defined under `spec/unit/client`.
+Front-end testing is achieved through use of `karma`, `sinon` and `jasmine` packages for karma. `karma` acted as the test runner, `sinon` played a key role in testing anyonymous functions and `jasmine` was used to test. They will all be installed when you run `npm install` and the tests will run when you run `npm test`. The tests are defined under `spec/unit/client`.
 
 ## Front-end views
 
