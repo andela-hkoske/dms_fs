@@ -8,7 +8,13 @@ module.exports = {
     var token = req.headers['x-access-token'];
     if (token) {
       try {
-        req.decoded = jsonwebtoken.verify(token, secretKey);
+        var decoded = jsonwebtoken.verify(token, secretKey);
+        if(decoded._doc){
+          req.decoded = decoded._doc;
+        }
+        else{
+          req.decoded = decoded;
+        }
         next();
       } catch (err) {
         return res.status(401).send({
