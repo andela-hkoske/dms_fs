@@ -8,7 +8,6 @@ describe('Token Service Test', function() {
   beforeEach(inject(function($injector) {
     windowRes = $injector.get('$window');
     Token = $injector.get('Token');
-    windowRes.localStorage.setItem = sinon.stub().returns(true);
   }));
 
   describe('Token unit tests', function() {
@@ -21,6 +20,7 @@ describe('Token Service Test', function() {
       expect(Token.get).toBeDefined();
       expect(typeof Token.get).toBe('function');
       Token.set('token');
+      console.log(Token.get());
       expect(Token.get()).toBe('token');
     });
 
