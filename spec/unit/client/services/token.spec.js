@@ -20,7 +20,6 @@ describe('Token Service Test', function() {
       expect(Token.get).toBeDefined();
       expect(typeof Token.get).toBe('function');
       Token.set('token');
-      console.log(Token.get());
       expect(Token.get()).toBe('token');
     });
 
