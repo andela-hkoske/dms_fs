@@ -25,6 +25,11 @@ module.exports = {
               error: 'Session has expired or does not exist.'
             });
           } else {
+            if (decoded._doc) {
+              req.decoded = decoded._doc;
+            } else {
+              req.decoded = decoded;
+            }
             User.findById(decoded._id)
               .populate('role')
               .exec(function(err, user) {
