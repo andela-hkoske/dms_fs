@@ -9,7 +9,7 @@ machine:
   environment:
     NODE_ENV: test
     CIRCLE_ENV: test
-    DB_URL: mongodb://doc-man:istanbul123@ds039125.mongolab.com:39125/doc-man
+    DATABASE_URL: mongodb://user:user01doc@ds045465.mongolab.com:45465/doc-man_test
     PORT: 3000
     SECRET_KEY: H46Blh801JQM3<4CdfOmT9yKMa
     CODECLIMATE_REPO_TOKEN: 8167ae56d3e5478238f015d158bae278d696085488a2e16142eb1f99f9a1cfbc
