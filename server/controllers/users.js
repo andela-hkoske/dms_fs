@@ -30,7 +30,7 @@ module.exports = {
             } else {
               req.decoded = decoded;
             }
-            User.findById(decoded._id)
+            User.findById(req.decoded._id)
               .populate('role')
               .exec(function(err, user) {
                 if (err) {
