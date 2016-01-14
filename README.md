@@ -29,25 +29,33 @@ It is developed using ​mongoose​, an ODM for Node. The system will permit us
 1. Run `npm install` on the terminal.
 
 ## Usage
+
 Navigate to the project directory.
 Run `mongod` then `npm run seed` on a seperate terminal tab, once completed, exit and run `gulp`.
 Navigate to the address `http://localhost:3000/` on your browser to access the app.
 
-## Running Tests
-To run tests run `npm run seed` on your terminal.
-Once completed run `npm test` on the terminal while within the **project root directory**.
+## Running tests
+
+To run tests run `npm test` on the terminal while within the **project root directory**.
+
+## Seeding data
+
+To seed dummy data run `npm run seed` on your terminal.
 
 ## Backend
 
 Docman was built off of an existing backend found [**here**](https://github.com/andela-hkoske/dms_api.git).
 
-## Front-end Testing
+## Front-end testing
 
 Front-end testing is achieved through use of `karma`, `sinon` and `jasmine` packages for karma. `karma` acted as the test runner, `sinon` played a key role in testing anyonymous functions and `jasmine` was used to test. They will all be installed when you run `npm install` and the tests will run when you run `npm test`. The tests are defined under `spec/unit/client`.
 
 ## Front-end views
 
 The front-end views were built using `angular-material` and the controllers and services to aid them were made using `angularjs`. 
+
+## Hosted application
+The hosted version of the application can be found [**here**](http://doc-man.herokuapp.com/).
 
 ## Contributing
 
